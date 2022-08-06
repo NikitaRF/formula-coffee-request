@@ -7,9 +7,9 @@ import firebase from "firebase";
 import {useDispatch, useSelector} from "react-redux";
 
 import { THEME } from "../theme";
-import {OrdersNavigation} from "./OrdersNavigation";
+import {KitchenNavigation} from "./KitchenNavigation";
 import {userLogout} from "../store/actions/userLogout";
-import {MenuNavigation} from "./MenuNavigation";
+
 
 
 
@@ -82,7 +82,7 @@ export const MenuDrawer = () => {
 
             <Drawer.Screen
                 name="Кухня"
-                component={OrdersNavigation}
+                component={KitchenNavigation}
                 options={{
                     drawerIcon: ({focused}) => <MaterialCommunityIcons
                         name='food-turkey'

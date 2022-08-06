@@ -1,8 +1,8 @@
-import {GET_ORDER} from "../types";
+import {GET_FORM} from "../types";
 import firebase from "firebase";
 
 
-export const getOrder = () => {
+export const getForm = () => {
 
     const getOrderInfoOnDB = async () => {
         const userUid = firebase.auth().currentUser.uid
@@ -30,7 +30,7 @@ export const getOrder = () => {
     return async dispatch => {
         const dataOrder = await getOrderInfoOnDB()
         dispatch({
-            type: GET_ORDER,
+            type: GET_FORM,
             payload: dataOrder
         })
     }

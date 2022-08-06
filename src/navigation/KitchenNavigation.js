@@ -1,5 +1,5 @@
 import {createStackNavigator} from '@react-navigation/stack';
-import {OrdersScreen} from "../screens/OrdersScreen";
+import {KitchenScreen} from "../screens/KitchenScreen";
 import React from "react";
 import {HeaderButtons, Item} from "react-navigation-header-buttons";
 import {AppHeaderIcon} from "../components/AppHeaderIcon";
@@ -7,7 +7,7 @@ import {AppHeaderIcon} from "../components/AppHeaderIcon";
 
 const Stack = createStackNavigator();
 
-export const OrdersNavigation = () =>  {
+export const KitchenNavigation = () =>  {
 
     return (
         <Stack.Navigator
@@ -21,7 +21,7 @@ export const OrdersNavigation = () =>  {
             ),
         })}
         >
-            <Stack.Screen name="Заказы" component={OrdersScreen} />
+            <Stack.Screen name="Заявка кухня" component={KitchenScreen} />
         </Stack.Navigator>
     );
 }

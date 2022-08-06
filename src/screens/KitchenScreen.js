@@ -1,14 +1,13 @@
 import React, {useCallback, useEffect, useState} from "react";
-import {ActivityIndicator, FlatList, RefreshControl, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {ActivityIndicator, StyleSheet, View} from "react-native";
 
 import {THEME} from "../theme";
 import {useDispatch, useSelector} from "react-redux";
-import {getOrders} from "../store/actions/getOrders";
-import {OrdersItem} from "../components/OrdersItem";
+//
 
-export const OrdersScreen = () => {
+export const KitchenScreen = () => {
     const dispatch = useDispatch()
-    const ordersData = useSelector(state => state.menu.orders)
+    const formData = useSelector(state => state.menu.form)
 
     const [menuSelected, setMenuSelected] = useState({
         currentMenuSelected: 'В обработке',
@@ -23,7 +22,7 @@ export const OrdersScreen = () => {
             ...state,
             isLoading: true,
         })
-        dispatch(getOrders(menuSelected.currentMenuSelected))
+        // dispatch(getOrders(menuSelected.currentMenuSelected))
         setState({
             ...state,
             isLoading: false,
@@ -31,15 +30,12 @@ export const OrdersScreen = () => {
     }, [menuSelected.currentMenuSelected])
 
 
-     // console.log(state.currentState)
-     // console.log(menuSelected.currentMenuSelected)
-     // console.log('ordersData', ordersData)
 
 
     const [refreshing, setRefreshing] = useState(false);
     const onRefresh = useCallback(() => {
         setRefreshing(true);
-        dispatch(getOrders(menuSelected.currentMenuSelected)).then(() => setRefreshing(false));
+        // dispatch(getOrders(menuSelected.currentMenuSelected)).then(() => setRefreshing(false));
     }, [menuSelected.currentMenuSelected]);
 
     const menuToggle = (item) => {
@@ -58,29 +54,6 @@ export const OrdersScreen = () => {
 
     return (
         <View style={styles.center}>
-            <View style={styles.lineMenu}>
-                <TouchableOpacity onPress={() => menuToggle('В обработке')} style={menuSelected.currentMenuSelected == 'В обработке' ? styles.menuItemBlockSelected : styles.menuItemBlock}>
-                    <Text style={styles.menuItemText}>В обработке</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => menuToggle('Принят')}  style={menuSelected.currentMenuSelected == 'Принят' ? styles.menuItemBlockSelected : styles.menuItemBlock}>
-                    <Text style={styles.menuItemText}>Принят</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => menuToggle('Выполнен')}  style={menuSelected.currentMenuSelected == 'Выполнен' ? styles.menuItemBlockSelected : styles.menuItemBlock}>
-                    <Text style={styles.menuItemText}>Выполнен</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => menuToggle('Отклонен')}  style={menuSelected.currentMenuSelected == 'Отклонен' ? styles.menuItemBlockSelected : styles.menuItemBlock}>
-                    <Text style={styles.menuItemText}>Отклонен</Text>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.flatList}>
-                <FlatList
-                    data={ordersData}
-                    keyExtractor={(menu) => menu.name}
-                    refreshing={true}
-                    refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
-                    renderItem={({item}) => <OrdersItem Item={item} /> }
-                />
-            </View>
         </View>
     )
 }
