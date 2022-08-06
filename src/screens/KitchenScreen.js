@@ -1,13 +1,17 @@
 import React, {useCallback, useEffect, useState} from "react";
-import {ActivityIndicator, StyleSheet, View} from "react-native";
+import {ActivityIndicator, FlatList, StyleSheet, Text, View} from "react-native";
 
 import {THEME} from "../theme";
 import {useDispatch, useSelector} from "react-redux";
-//
+import {getFormKitchen} from "../store/actions/getFormKitchen";
+import {FormItem} from '../components/FormItem'
+
 
 export const KitchenScreen = () => {
     const dispatch = useDispatch()
-    const formData = useSelector(state => state.menu.form)
+    const formData = useSelector(state => state.menu.formKitchen)
+
+    console.log("FORMDATA", formData)
 
     const [menuSelected, setMenuSelected] = useState({
         currentMenuSelected: 'В обработке',
@@ -22,7 +26,7 @@ export const KitchenScreen = () => {
             ...state,
             isLoading: true,
         })
-        // dispatch(getOrders(menuSelected.currentMenuSelected))
+        dispatch(getFormKitchen())
         setState({
             ...state,
             isLoading: false,
@@ -49,14 +53,25 @@ export const KitchenScreen = () => {
             <View style={styles.preloader}>
                 <ActivityIndicator size="large" color={THEME.COLOR_MAIN_DARK}/>
             </View>
+
         )
     }
 
     return (
         <View style={styles.center}>
+           <Text>Текст</Text>
+            <View style={styles.flatList}>
+                {/*<FlatList*/}
+                {/*    data={formData}*/}
+                {/*    keyExtractor={(menu) => menu.name}*/}
+                {/*    refreshing={true}*/}
+                {/*    renderItem={({item}) => <FormItem Item={item} /> }*/}
+                {/*/>*/}
+            </View>
         </View>
     )
 }
+
 
 const styles = StyleSheet.create({
     preloader: {

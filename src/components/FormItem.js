@@ -3,9 +3,9 @@ import {Text, TouchableOpacity, View, StyleSheet, Dimensions, ActivityIndicator}
 import {THEME} from "../theme";
 import firebase from "firebase";
 import {useDispatch} from "react-redux";
-import {getOrders} from "../store/actions/getOrders";
 
-export const OrdersItem = ({Item}) => {
+
+export const FormItem = ({Item}) => {
     const dispatch = useDispatch()
     const [state, setState] = useState({
         full: false,

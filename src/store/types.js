@@ -4,4 +4,4 @@ export const USER_LOGOUT = 'USER_LOGOUT'
 export const LOAD_INDICATOR = 'LOAD_INDICATOR'
 
 
-export const GET_FORM = 'GET_FORM'
+export const GET_FORM_KITCHEN = 'GET_FORM_KITCHEN'

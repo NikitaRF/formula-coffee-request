@@ -1,16 +1,16 @@
-import {GET_FORM} from '../types'
+import {GET_FORM_KITCHEN} from '../types'
 
 
 const initialState = {
-    form: [],
+    formKitchen: [],
     loading: false,
 }
 
 export const kitchenReducer = (state = initialState, action) => {
     switch (action.type) {
-          case GET_FORM: return {
+          case GET_FORM_KITCHEN: return {
             ...state,
-            form: action.payload
+              formKitchen: action.payload
         }
     }
     return state
