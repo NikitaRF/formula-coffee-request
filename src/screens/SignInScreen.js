@@ -105,7 +105,7 @@ export const SignInScreen = ({navigation}) => {
                     style={styles.logo}
                     source={require('../../assets/logo2.png')}
                 />
-                <Text style={styles.title}>Вход для менеджеров</Text>
+                <Text style={styles.title}>Составление заявок</Text>
                 <View style={styles.inputWrap}>
                     <TextInput
                         autoCorrect={false}

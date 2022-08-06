@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
         color: THEME.COLOR_MAIN_DARK,
     },
     flatList: {
-        height: "95%",
+        height: "93%",
         alignItems: 'center',
         justifyContent: 'center',
     },

@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {Text, Image, StyleSheet, View, Linking, Button, TouchableOpacity} from "react-native";
 import {createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList} from "@react-navigation/drawer";
-import {AntDesign, FontAwesome, FontAwesome5, MaterialIcons, SimpleLineIcons} from '@expo/vector-icons';
+import {AntDesign, FontAwesome, MaterialCommunityIcons, FontAwesome5, MaterialIcons, SimpleLineIcons} from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import firebase from "firebase";
 import {useDispatch, useSelector} from "react-redux";
-
 
 import { THEME } from "../theme";
 import {OrdersNavigation} from "./OrdersNavigation";
@@ -82,28 +81,16 @@ export const MenuDrawer = () => {
         >
 
             <Drawer.Screen
-                name="Заказы"
+                name="Кухня"
                 component={OrdersNavigation}
                 options={{
-                    drawerIcon: ({focused}) => <FontAwesome5
-                        name='shopping-bag'
+                    drawerIcon: ({focused}) => <MaterialCommunityIcons
+                        name='food-turkey'
                         size={iconSize}
                         color={focused ? THEME.COLOR_MAIN_LIGHT : THEME.COLOR_MAIN_DARK}
                     />
                 }}
             />
-            <Drawer.Screen
-                name="Меню"
-                component={MenuNavigation}
-                options={{
-                    drawerIcon: ({focused}) => <MaterialIcons
-                        name='menu-book'
-                        size={iconSize}
-                        color={focused ? THEME.COLOR_MAIN_LIGHT : THEME.COLOR_MAIN_DARK}
-                    />
-                }}
-            />
-
         </Drawer.Navigator>
     );
 }
