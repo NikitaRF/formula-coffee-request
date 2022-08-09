@@ -11,8 +11,10 @@ import {FormItem} from '../components/FormItem'
 export const KitchenScreen = () => {
     const dispatch = useDispatch()
     const formData = useSelector(state => state.menu.formKitchen)
+    // console.log("FORMDATA", formData)
 
-    console.log("FORMDATA", formData)
+    const itemRequest = useSelector(state => state.menu.requestKitchen)
+    console.log('ItemREQUEST', itemRequest)
 
     const [state, setState] = useState({
         isLoading: false

@@ -4,6 +4,7 @@ import {THEME} from "../theme";
 import firebase from "firebase";
 import {useDispatch} from "react-redux";
 import {TextInput} from "react-native-gesture-handler";
+import {requestKitchen} from "../store/actions/requestKitchen";
 
 
 export const FormItem = ({Item}) => {
@@ -11,6 +12,7 @@ export const FormItem = ({Item}) => {
     const [state, setState] = useState({
         isLoading: false
     })
+    const [itemsRequest, setItemsRequest] = useState()
 
     if(state.isLoading){
         return(
@@ -21,7 +23,7 @@ export const FormItem = ({Item}) => {
     }
 
     const updateInputVal = (val) => {
-
+        dispatch(requestKitchen(Item, val))
     }
 
     return (
