@@ -13,10 +13,6 @@ export const KitchenScreen = () => {
 
     console.log("FORMDATA", formData)
 
-    const [menuSelected, setMenuSelected] = useState({
-        currentMenuSelected: 'В обработке',
-    })
-
     const [state, setState] = useState({
         isLoading: false
     })
@@ -31,47 +27,40 @@ export const KitchenScreen = () => {
             ...state,
             isLoading: false,
         })
-    }, [menuSelected.currentMenuSelected])
-
-
-
-
-    const [refreshing, setRefreshing] = useState(false);
-    const onRefresh = useCallback(() => {
-        setRefreshing(true);
-        // dispatch(getOrders(menuSelected.currentMenuSelected)).then(() => setRefreshing(false));
-    }, [menuSelected.currentMenuSelected]);
-
-    const menuToggle = (item) => {
-        setMenuSelected({
-            currentMenuSelected: item
-        })
-    }
+    }, [])
 
     if(state.isLoading){
         return (
             <View style={styles.preloader}>
                 <ActivityIndicator size="large" color={THEME.COLOR_MAIN_DARK}/>
             </View>
-
         )
     }
 
     return (
         <View style={styles.center}>
-           <Text>Текст</Text>
+            <View style={styles.titleBlock}>
+                <View style={[styles.blockTable, styles.nameBlock]}>
+                    <Text style={styles.titleText}>Наименование</Text>
+                </View>
+                <View style={[styles.blockTable, styles.characterBlock]}>
+                    <Text style={styles.titleText}>е/и</Text>
+                </View>
+                <View style={[styles.blockTable, styles.inputBlock]}>
+                    <Text style={styles.titleText}>кол-во</Text>
+                </View>
+            </View>
             <View style={styles.flatList}>
-                {/*<FlatList*/}
-                {/*    data={formData}*/}
-                {/*    keyExtractor={(menu) => menu.name}*/}
-                {/*    refreshing={true}*/}
-                {/*    renderItem={({item}) => <FormItem Item={item} /> }*/}
-                {/*/>*/}
+                <FlatList
+                    data={formData}
+                    keyExtractor={(menu) => menu.name}
+                    refreshing={true}
+                    renderItem={({item}) => <FormItem Item={item} /> }
+                />
             </View>
         </View>
     )
 }
-
 
 const styles = StyleSheet.create({
     preloader: {
@@ -87,27 +76,32 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    lineMenu: {
+    titleBlock: {
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        height: "5%",
-        width: '100%',
+        marginHorizontal: 10,
+        backgroundColor: THEME.COLOR_MAIN_LIGHT
+    },
+    blockTable: {
+        borderStyle: 'solid',
+        borderColor: THEME.COLOR_MAIN_DARK,
         borderWidth: 1,
-        borderColor: THEME.COLOR_MAIN_LIGHT,
+        padding: 2,
+        alignItems: 'center',
     },
-    menuItemBlock: {
-        paddingVertical: 10,
-        paddingHorizontal: 10,
+    nameBlock: {
+        width: '50%',
+        alignItems: 'left',
+        paddingLeft: 10,
     },
-    menuItemBlockSelected: {
-        paddingVertical: 10,
-        paddingHorizontal: 10,
-        backgroundColor: THEME.COLOR_MAIN_LIGHT,
+    characterBlock: {
+        width: '15%',
     },
-    menuItemText: {
-        fontFamily: THEME.FONT_MAIN,
-        color: THEME.COLOR_MAIN_DARK,
+    inputBlock: {
+        width: '35%',
+    },
+    titleText: {
+        fontWeight: 'bold',
+        fontSize: 14,
     },
     flatList: {
         height: "95%",
@@ -130,3 +124,15 @@ const styles = StyleSheet.create({
 //         //console.log(res)
 //     });
 // })
+
+// const [refreshing, setRefreshing] = useState(false);
+// const onRefresh = useCallback(() => {
+//     setRefreshing(true);
+//     // dispatch(getOrders(menuSelected.currentMenuSelected)).then(() => setRefreshing(false));
+// }, [menuSelected.currentMenuSelected]);
+//
+// const menuToggle = (item) => {
+//     setMenuSelected({
+//         currentMenuSelected: item
+//     })
+// }
