@@ -3,12 +3,12 @@ import {Text, TouchableOpacity, View, StyleSheet, Dimensions, ActivityIndicator}
 import {THEME} from "../theme";
 import firebase from "firebase";
 import {useDispatch} from "react-redux";
+import {TextInput} from "react-native-gesture-handler";
 
 
 export const FormItem = ({Item}) => {
     const dispatch = useDispatch()
     const [state, setState] = useState({
-        full: false,
         isLoading: false
     })
 
@@ -20,6 +20,10 @@ export const FormItem = ({Item}) => {
         )
     }
 
+    const updateInputVal = (val) => {
+
+    }
+
     return (
         <View style={styles.mainWrap}>
             <View style={[styles.blockTable, styles.nameBlock]}>
@@ -29,7 +33,17 @@ export const FormItem = ({Item}) => {
                 <Text>{Item.unit}</Text>
             </View>
             <View style={[styles.blockTable, styles.inputBlock]}>
-                <Text>число</Text>
+                <TextInput
+                    autoCorrect={false}
+                    autoCapitalize='none'
+                    keyboardType='numeric'
+                    placeholder='Ввести'
+                    placeholderTextColor={THEME.COLOR_MAIN_PLACEHOLDER}
+                    textContentType='emailAddress'
+                    style={styles.input}
+                    maxLength={5}
+                    onChangeText={(val) => updateInputVal(val)}
+                />
             </View>
         </View>
     )
@@ -42,12 +56,14 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         marginHorizontal: 10,
+        marginVertical: 1,
     },
     blockTable: {
         borderStyle: 'solid',
         borderColor: THEME.COLOR_MAIN_DARK,
         borderWidth: 1,
         padding: 2,
+        paddingVertical: 10,
         alignItems: 'center',
     },
     nameBlock: {
@@ -66,4 +82,5 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
     },
+
 })

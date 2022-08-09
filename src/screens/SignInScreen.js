@@ -112,6 +112,7 @@ export const SignInScreen = ({navigation}) => {
                         autoCapitalize='none'
                         keyboardType='email-address'
                         placeholder='Email'
+                        placeholderTextColor={THEME.COLOR_MAIN_PLACEHOLDER}
                         textContentType='emailAddress'
                         style={styles.input}
                         maxLength={35}
@@ -125,6 +126,7 @@ export const SignInScreen = ({navigation}) => {
                             onFocus={() => onFocus()}
                             onBlur={() => onBlur()}
                             placeholder='Password'
+                            placeholderTextColor={THEME.COLOR_MAIN_PLACEHOLDER}
                             textContentType='password'
                             style={styles.input}
                             maxLength={25}

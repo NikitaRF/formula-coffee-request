@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
         borderColor: THEME.COLOR_MAIN_DARK,
         borderWidth: 1,
         padding: 2,
+        paddingVertical: 5,
         alignItems: 'center',
     },
     nameBlock: {
