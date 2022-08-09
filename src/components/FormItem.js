@@ -2,28 +2,35 @@ import React, {useState} from "react";
 import {Text, TouchableOpacity, View, StyleSheet, Dimensions, ActivityIndicator} from "react-native";
 import {THEME} from "../theme";
 import firebase from "firebase";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {TextInput} from "react-native-gesture-handler";
 import {requestKitchen} from "../store/actions/requestKitchen";
 
 
 export const FormItem = ({Item}) => {
     const dispatch = useDispatch()
-    const [state, setState] = useState({
-        isLoading: false
-    })
-    const [itemsRequest, setItemsRequest] = useState()
+    const valueOfInput = useSelector(state => state.menu.requestKitchen)
 
-    if(state.isLoading){
-        return(
-            <View style={styles.preloader}>
-                <ActivityIndicator size="large" color={THEME.COLOR_MAIN_DARK}/>
-            </View>
-        )
-    }
+    // if(state.isLoading) {
+    //     return(
+    //         <View style={styles.preloader}>
+    //             <ActivityIndicator size="large" color={THEME.COLOR_MAIN_DARK}/>
+    //         </View>
+    //     )
+    // }
+
+
 
     const updateInputVal = (val) => {
         dispatch(requestKitchen(Item, val))
+    }
+
+    const setValueOfInput = () => {
+        if (valueOfInput.length === 0) {
+            return ''
+        }
+        const findElement = valueOfInput.filter((el) => el.name === Item.name)
+        return findElement.count
     }
 
     return (
@@ -41,10 +48,11 @@ export const FormItem = ({Item}) => {
                     keyboardType='numeric'
                     placeholder='Ввести'
                     placeholderTextColor={THEME.COLOR_MAIN_PLACEHOLDER}
-                    textContentType='emailAddress'
+                    textContentType='none'
                     style={styles.input}
                     maxLength={5}
                     onChangeText={(val) => updateInputVal(val)}
+                    value={setValueOfInput()}
                 />
             </View>
         </View>

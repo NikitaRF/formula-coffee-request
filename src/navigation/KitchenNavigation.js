@@ -8,6 +8,7 @@ import {View, StyleSheet, ActivityIndicator} from "react-native";
 import {THEME} from "../theme";
 import {getFormKitchen} from "../store/actions/getFormKitchen";
 import {useDispatch, useSelector} from "react-redux";
+import {clearRequestKitchen} from "../store/actions/clearKitchenRequest";
 
 const Stack = createStackNavigator();
 
@@ -23,6 +24,7 @@ export const KitchenNavigation = () =>  {
             isLoading: true,
         })
         dispatch(getFormKitchen())
+        dispatch(clearRequestKitchen())
         setState({
             ...state,
             isLoading: false,

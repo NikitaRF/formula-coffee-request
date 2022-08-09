@@ -1,4 +1,4 @@
-import {GET_FORM_KITCHEN, REQUEST_KITCHEN} from '../types'
+import {GET_FORM_KITCHEN, REQUEST_KITCHEN, CLEAR_REQUEST_KITCHEN} from '../types'
 
 
 
@@ -35,6 +35,10 @@ export const kitchenReducer = (state = initialState, action) => {
                 ...state,
                 requestKitchen: currentRequestKitchen
             }
+        case CLEAR_REQUEST_KITCHEN: return {
+            ...state,
+            requestKitchen: action.payload
+        }
     }
     return state
 }
