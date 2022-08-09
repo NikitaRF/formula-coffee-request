@@ -3,7 +3,6 @@ import {GET_FORM_KITCHEN} from '../types'
 
 const initialState = {
     formKitchen: [],
-    loading: false,
 }
 
 export const kitchenReducer = (state = initialState, action) => {

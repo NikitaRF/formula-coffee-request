@@ -1,10 +1,11 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {ActivityIndicator, FlatList, StyleSheet, Text, View} from "react-native";
 
 import {THEME} from "../theme";
 import {useDispatch, useSelector} from "react-redux";
 import {getFormKitchen} from "../store/actions/getFormKitchen";
 import {FormItem} from '../components/FormItem'
+
 
 
 export const KitchenScreen = () => {
