@@ -70,9 +70,9 @@ const styles = StyleSheet.create({
         width: '100%',
         minHeight: 40,
         textAlign: 'center',
-        borderColor: 'red',
-        borderStyle: 'solid',
-        borderWidth: 1,
+        // borderColor: 'red',
+        // borderStyle: 'solid',
+        // borderWidth: 1,
     },
     blockTable: {
         borderStyle: 'solid',
