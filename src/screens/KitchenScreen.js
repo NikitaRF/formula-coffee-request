@@ -9,6 +9,7 @@ import {TouchableOpacity} from "react-native-gesture-handler";
 import {FormItemModal} from "../components/FormItemModal";
 import email from "react-native-email";
 import {clearRequestKitchen} from "../store/actions/clearKitchenRequest";
+import {ModalRequestSuccess} from "../components/ModalRequestSuccess";
 
 export const KitchenScreen = () => {
     const userDisplayName = useSelector(state => state.user.userAuth)
@@ -25,6 +26,7 @@ export const KitchenScreen = () => {
     const [state, setState] = useState({
         isLoading: false
     })
+    const [modalLuckWindow, setModalLuckWindow] = useState(false)
 
     if(state.isLoading){
         return (
@@ -33,7 +35,6 @@ export const KitchenScreen = () => {
             </View>
         )
     }
-
 
     const handleEmail = () => {
         const nowDate = new Date()
@@ -86,7 +87,6 @@ export const KitchenScreen = () => {
         })
     }, [])
 
-
     const postRequest = () => {
         setModal(true)
     }
@@ -94,11 +94,20 @@ export const KitchenScreen = () => {
         setModal(false)
         handleEmail()
         updateForm()
+        setModalLuckWindow(true)
     }
     const canselRequest = () => {
         setModal(false)
     }
+    // Модалка успеха заявки
+    if (modalLuckWindow) {
+        return (
+            <ModalRequestSuccess modalLuckWindow={modalLuckWindow} setModalLuckWindow={e => setModalLuckWindow(false)}/>
+        )
+    }
 
+
+    // Модалка подтверждение заявки
     if (modal) {
         return (
             <Modal visible={modal} animationType='slide' transparent={false}>
