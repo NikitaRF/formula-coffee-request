@@ -7,11 +7,12 @@ import {getFormKitchen} from "../store/actions/getFormKitchen";
 import {FormItem} from '../components/FormItem'
 import {TouchableOpacity} from "react-native-gesture-handler";
 import {FormItemModal} from "../components/FormItemModal";
-
-
-
+import email from "react-native-email";
 
 export const KitchenScreen = () => {
+    const userDisplayName = useSelector(state => state.user.userAuth)
+    //console.log(userDisplayName)
+
     const dispatch = useDispatch()
     const formData = useSelector(state => state.menu.formKitchen)
     // console.log("FORMDATA", formData)
@@ -32,6 +33,33 @@ export const KitchenScreen = () => {
         )
     }
 
+
+    const handleEmail = () => {
+        const nowDate = new Date()
+        const formatter = new Intl.DateTimeFormat("ru", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric',
+            weekday: "long",
+        });
+        const currentDate = formatter.format(nowDate)
+        let message = ''
+        itemRequest.forEach( (e) => message += `${e.name} ${e.unit} - ${e.count} \n`)
+
+        const to = ['bng@itbls.ru'] // string or array of email addresses
+        email(to, {
+            // Optional additional arguments
+            // cc: ['bazzy@moo.com', 'doooo@daaa.com'], // string or array of email addresses
+            // bcc: 'mee@mee.com', // string or array of email addresses
+            subject: `Заявка кухня, ${currentDate}`,
+            body: `Заявку составил ${userDisplayName} \n ${message}`,
+            checkCanOpen: false // Call Linking.canOpenURL prior to Linking.openURL
+        }).catch(console.error)
+    }
+
     useEffect(() => {
         setState({
             ...state,
@@ -50,6 +78,7 @@ export const KitchenScreen = () => {
     }
     const acceptRequest = () => {
         setModal(false)
+        handleEmail()
     }
     const canselRequest = () => {
         setModal(false)

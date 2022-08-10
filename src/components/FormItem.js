@@ -3,6 +3,7 @@ import {Text, View, StyleSheet, TextInput} from "react-native";
 import {THEME} from "../theme";
 import {useDispatch, useSelector} from "react-redux";
 import {requestKitchen} from "../store/actions/requestKitchen";
+import email from 'react-native-email'
 
 
 

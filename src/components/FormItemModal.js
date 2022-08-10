@@ -1,16 +1,12 @@
 import React, {useState} from "react";
-import {Text, TouchableOpacity, View, StyleSheet, Dimensions, ActivityIndicator} from "react-native";
+import {Text, View, StyleSheet, Dimensions, ActivityIndicator} from "react-native";
 import {THEME} from "../theme";
-import firebase from "firebase";
 import {useDispatch, useSelector} from "react-redux";
-import {TextInput} from "react-native-gesture-handler";
-import {requestKitchen} from "../store/actions/requestKitchen";
+
+import email from "react-native-email";
 
 
 export const FormItemModal = ({Item}) => {
-    const dispatch = useDispatch()
-    const valueOfInput = useSelector(state => state.menu.requestKitchen)
-
 
     return (
         <View style={styles.mainWrap}>
