@@ -5,21 +5,12 @@ import firebase from "firebase";
 import {useDispatch, useSelector} from "react-redux";
 import {TextInput} from "react-native-gesture-handler";
 import {requestKitchen} from "../store/actions/requestKitchen";
+import {useIsFocused} from "@react-navigation/native";
 
 
 export const FormItem = ({Item}) => {
     const dispatch = useDispatch()
     const valueOfInput = useSelector(state => state.menu.requestKitchen)
-
-    // if(state.isLoading) {
-    //     return(
-    //         <View style={styles.preloader}>
-    //             <ActivityIndicator size="large" color={THEME.COLOR_MAIN_DARK}/>
-    //         </View>
-    //     )
-    // }
-
-
 
     const updateInputVal = (val) => {
         dispatch(requestKitchen(Item, val))
@@ -30,7 +21,8 @@ export const FormItem = ({Item}) => {
             return ''
         }
         const findElement = valueOfInput.filter((el) => el.name === Item.name)
-        return findElement.count
+        if (findElement.length !== 0) return findElement[0].count
+        return ''
     }
 
     return (
@@ -91,6 +83,16 @@ const styles = StyleSheet.create({
         marginTop: 15,
         flexDirection: 'row',
         justifyContent: 'space-around',
+    },
+    preloader: {
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        position: 'absolute',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#fff'
     },
 
 })

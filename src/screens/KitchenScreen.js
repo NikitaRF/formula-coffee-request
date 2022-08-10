@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useReducer, useState} from "react";
 import {ActivityIndicator, FlatList, StyleSheet, Text, View, Modal} from "react-native";
 
 import {THEME} from "../theme";
@@ -24,6 +24,14 @@ export const KitchenScreen = () => {
         isLoading: false
     })
 
+    if(state.isLoading){
+        return (
+            <View style={styles.preloader}>
+                <ActivityIndicator size="large" color={THEME.COLOR_MAIN_DARK}/>
+            </View>
+        )
+    }
+
     useEffect(() => {
         setState({
             ...state,
@@ -36,13 +44,6 @@ export const KitchenScreen = () => {
         })
     }, [])
 
-    if(state.isLoading){
-        return (
-            <View style={styles.preloader}>
-                <ActivityIndicator size="large" color={THEME.COLOR_MAIN_DARK}/>
-            </View>
-        )
-    }
 
     const postRequest = () => {
         setModal(true)
