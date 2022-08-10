@@ -1,5 +1,5 @@
 import React, {useEffect, useReducer, useState} from "react";
-import {ActivityIndicator, FlatList, StyleSheet, Text, View, Modal} from "react-native";
+import {ActivityIndicator, KeyboardAvoidingView, Keyboard, FlatList, StyleSheet, Text, View, Modal} from "react-native";
 
 import {THEME} from "../theme";
 import {useDispatch, useSelector} from "react-redux";
@@ -143,37 +143,44 @@ export const KitchenScreen = () => {
     }
 
     return (
+        <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={styles.container}>
         <View style={styles.center}>
-            <View style={styles.titleBlock}>
-                <View style={[styles.blockTable, styles.nameBlock]}>
-                    <Text style={styles.titleText}>Наименование</Text>
+                <View style={styles.titleBlock}>
+                    <View style={[styles.blockTable, styles.nameBlock]}>
+                        <Text style={styles.titleText}>Наименование</Text>
+                    </View>
+                    <View style={[styles.blockTable, styles.characterBlock]}>
+                        <Text style={styles.titleText}>е/и</Text>
+                    </View>
+                    <View style={[styles.blockTable, styles.inputBlock]}>
+                        <Text style={styles.titleText}>кол-во</Text>
+                    </View>
                 </View>
-                <View style={[styles.blockTable, styles.characterBlock]}>
-                    <Text style={styles.titleText}>е/и</Text>
+                <View style={styles.flatList}>
+                    <FlatList
+                        data={formData}
+                        keyExtractor={(menu) => menu.name}
+                        refreshing={true}
+                        renderItem={({item}) => <FormItem Item={item} /> }
+                    />
                 </View>
-                <View style={[styles.blockTable, styles.inputBlock]}>
-                    <Text style={styles.titleText}>кол-во</Text>
-                </View>
-            </View>
-            <View style={styles.flatList}>
-                <FlatList
-                    data={formData}
-                    keyExtractor={(menu) => menu.name}
-                    refreshing={true}
-                    renderItem={({item}) => <FormItem Item={item} /> }
-                />
-            </View>
-            <TouchableOpacity
-                style={styles.buttonWrap}
-                onPress={() => postRequest()}
-            >
-                <Text style={styles.buttonText}>Отправить</Text>
-            </TouchableOpacity>
+                <TouchableOpacity
+                    style={itemRequest.length ? styles.buttonWrap : styles.buttonWrapDisabled}
+                    onPress={() => postRequest()}
+                    disabled={itemRequest.length ? false : true}
+                >
+                    <Text style={styles.buttonText}>Отправить</Text>
+                </TouchableOpacity>
         </View>
+        </KeyboardAvoidingView>
+
     )
 }
 
 const styles = StyleSheet.create({
+
     preloader: {
         position: 'absolute',
         left: 0,
@@ -191,6 +198,17 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         borderRadius: 5,
         backgroundColor: THEME.COLOR_MAIN_LIGHT,
+    },
+    buttonWrapDisabled:{
+        width: 130,
+        height: 35,
+        marginBottom: 10,
+        marginTop: 5,
+        paddingHorizontal: 5,
+        paddingVertical: 5,
+        borderRadius: 5,
+        backgroundColor: THEME.COLOR_MAIN_DISABLED_BG,
+        color: THEME.COLOR_MAIN_DISABLED_FONT,
     },
     modalButtons: {
         flexDirection: 'row',
@@ -256,6 +274,7 @@ const styles = StyleSheet.create({
         height: "85%",
         alignItems: 'center',
         justifyContent: 'center',
+        paddingBottom: 25,
         // borderColor: 'red',
         // borderStyle: 'solid',
         // borderWidth: 1,

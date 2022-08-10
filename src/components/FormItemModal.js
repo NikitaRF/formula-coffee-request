@@ -37,24 +37,27 @@ const styles = StyleSheet.create({
         borderColor: THEME.COLOR_MAIN_DARK,
         borderWidth: 1,
         padding: 2,
-        paddingVertical: 10,
+        paddingVertical: 0,
         alignItems: 'center',
     },
     nameBlock: {
         width: '50%',
         alignItems: 'left',
         paddingLeft: 10,
+        justifyContent: 'center',
     },
     characterBlock: {
         width: '15%',
+        justifyContent: 'center',
     },
     inputBlock: {
         width: '35%',
+        justifyContent: 'center',
+        minHeight: 40,
     },
     statusButtonsWrap: {
         marginTop: 15,
         flexDirection: 'row',
         justifyContent: 'space-around',
     },
-
 })

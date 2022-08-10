@@ -1,8 +1,9 @@
 import React, {useState} from "react";
-import {Text, View, StyleSheet, TextInput} from "react-native";
+import {Text, View, StyleSheet, TextInput, KeyboardAvoidingView} from "react-native";
 import {THEME} from "../theme";
 import {useDispatch, useSelector} from "react-redux";
 import {requestKitchen} from "../store/actions/requestKitchen";
+
 
 
 
@@ -25,28 +26,28 @@ export const FormItem = ({Item}) => {
     }
 
     return (
-        <View style={findElement.length === 0 ? styles.mainWrap : styles.mainWrapSelected}>
-            <View style={[styles.blockTable, styles.nameBlock]}>
-                <Text>{Item.name}</Text>
+            <View style={findElement.length === 0 ? styles.mainWrap : styles.mainWrapSelected}>
+                <View style={[styles.blockTable, styles.nameBlock]}>
+                    <Text>{Item.name}</Text>
+                </View>
+                <View style={[styles.blockTable, styles.characterBlock]}>
+                    <Text>{Item.unit}</Text>
+                </View>
+                <View style={[styles.blockTable, styles.inputBlock]}>
+                    <TextInput
+                        autoCorrect={false}
+                        autoCapitalize='none'
+                        keyboardType='numeric'
+                        placeholder='Ввести'
+                        placeholderTextColor={THEME.COLOR_MAIN_PLACEHOLDER}
+                        textContentType='none'
+                        style={styles.input}
+                        maxLength={5}
+                        onChangeText={(val) => updateInputVal(val)}
+                        value={setValueOfInput()}
+                    />
+                </View>
             </View>
-            <View style={[styles.blockTable, styles.characterBlock]}>
-                <Text>{Item.unit}</Text>
-            </View>
-            <View style={[styles.blockTable, styles.inputBlock]}>
-                <TextInput
-                    autoCorrect={false}
-                    autoCapitalize='none'
-                    keyboardType='numeric'
-                    placeholder='Ввести'
-                    placeholderTextColor={THEME.COLOR_MAIN_PLACEHOLDER}
-                    textContentType='none'
-                    style={styles.input}
-                    maxLength={5}
-                    onChangeText={(val) => updateInputVal(val)}
-                    value={setValueOfInput()}
-                />
-            </View>
-        </View>
     )
 }
 
