@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Text, TouchableOpacity, View, StyleSheet, Dimensions, ActivityIndicator} from "react-native";
 import {THEME} from "../theme";
 import firebase from "firebase";
@@ -7,31 +7,10 @@ import {TextInput} from "react-native-gesture-handler";
 import {requestKitchen} from "../store/actions/requestKitchen";
 
 
-export const FormItem = ({Item}) => {
+export const FormItemModal = ({Item}) => {
     const dispatch = useDispatch()
     const valueOfInput = useSelector(state => state.menu.requestKitchen)
 
-    // if(state.isLoading) {
-    //     return(
-    //         <View style={styles.preloader}>
-    //             <ActivityIndicator size="large" color={THEME.COLOR_MAIN_DARK}/>
-    //         </View>
-    //     )
-    // }
-
-
-
-    const updateInputVal = (val) => {
-        dispatch(requestKitchen(Item, val))
-    }
-
-    const setValueOfInput = () => {
-        if (valueOfInput.length === 0) {
-            return ''
-        }
-        const findElement = valueOfInput.filter((el) => el.name === Item.name)
-        return findElement.count
-    }
 
     return (
         <View style={styles.mainWrap}>
@@ -42,18 +21,7 @@ export const FormItem = ({Item}) => {
                 <Text>{Item.unit}</Text>
             </View>
             <View style={[styles.blockTable, styles.inputBlock]}>
-                <TextInput
-                    autoCorrect={false}
-                    autoCapitalize='none'
-                    keyboardType='numeric'
-                    placeholder='Ввести'
-                    placeholderTextColor={THEME.COLOR_MAIN_PLACEHOLDER}
-                    textContentType='none'
-                    style={styles.input}
-                    maxLength={5}
-                    onChangeText={(val) => updateInputVal(val)}
-                    value={setValueOfInput()}
-                />
+                <Text>{Item.count}</Text>
             </View>
         </View>
     )

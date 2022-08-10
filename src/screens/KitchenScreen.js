@@ -1,10 +1,13 @@
 import React, {useEffect, useState} from "react";
-import {ActivityIndicator, FlatList, StyleSheet, Text, View} from "react-native";
+import {ActivityIndicator, FlatList, StyleSheet, Text, View, Modal} from "react-native";
 
 import {THEME} from "../theme";
 import {useDispatch, useSelector} from "react-redux";
 import {getFormKitchen} from "../store/actions/getFormKitchen";
 import {FormItem} from '../components/FormItem'
+import {TouchableOpacity} from "react-native-gesture-handler";
+import {FormItemModal} from "../components/FormItemModal";
+
 
 
 
@@ -16,6 +19,7 @@ export const KitchenScreen = () => {
     const itemRequest = useSelector(state => state.menu.requestKitchen)
     console.log('ItemREQUEST', itemRequest)
 
+    const [modal, setModal] = useState(false)
     const [state, setState] = useState({
         isLoading: false
     })
@@ -40,6 +44,59 @@ export const KitchenScreen = () => {
         )
     }
 
+    const postRequest = () => {
+        setModal(true)
+    }
+    const acceptRequest = () => {
+        setModal(false)
+    }
+    const canselRequest = () => {
+        setModal(false)
+    }
+
+    if (modal) {
+        return (
+            <Modal visible={modal} animationType='slide' transparent={false}>
+                <View style={styles.modalCenter}>
+                    <Text style={styles.modalTitleText}>Подтвердите заявку</Text>
+                    <View style={styles.titleBlock}>
+                        <View style={[styles.blockTable, styles.nameBlock]}>
+                            <Text style={styles.titleText}>Наименование</Text>
+                        </View>
+                        <View style={[styles.blockTable, styles.characterBlock]}>
+                            <Text style={styles.titleText}>е/и</Text>
+                        </View>
+                        <View style={[styles.blockTable, styles.inputBlock]}>
+                            <Text style={styles.titleText}>кол-во</Text>
+                        </View>
+                    </View>
+                    <View style={styles.modalFlatList}>
+                        <FlatList
+                            data={itemRequest}
+                            keyExtractor={(menu) => menu.name}
+                            refreshing={true}
+                            renderItem={({item}) => <FormItemModal Item={item} /> }
+                        />
+                    </View>
+                    <View style={styles.modalButtons}>
+                        <TouchableOpacity
+                            style={styles.buttonWrap}
+                            onPress={() => acceptRequest()}
+                        >
+                            <Text style={styles.buttonText}>Подтвердить</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.buttonWrap}
+                            onPress={() => canselRequest()}
+                        >
+                            <Text style={styles.buttonText}>Назад</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
+        )
+    }
+
     return (
         <View style={styles.center}>
             <View style={styles.titleBlock}>
@@ -61,6 +118,12 @@ export const KitchenScreen = () => {
                     renderItem={({item}) => <FormItem Item={item} /> }
                 />
             </View>
+            <TouchableOpacity
+                style={styles.buttonWrap}
+                onPress={() => postRequest()}
+            >
+                <Text style={styles.buttonText}>Отправить</Text>
+            </TouchableOpacity>
         </View>
     )
 }
@@ -73,6 +136,36 @@ const styles = StyleSheet.create({
         top: '50%',
         bottom: 0,
         backgroundColor: '#fff'
+    },
+    buttonWrap:{
+        width: 130,
+        height: 35,
+        marginBottom: 10,
+        marginTop: 5,
+        paddingHorizontal: 5,
+        paddingVertical: 5,
+        borderRadius: 5,
+        backgroundColor: THEME.COLOR_MAIN_LIGHT,
+    },
+    modalButtons: {
+        flexDirection: 'row',
+        width: '100%',
+        justifyContent: 'space-around',
+        // borderColor: 'red',
+        // borderStyle: 'solid',
+        // borderWidth: 1,
+    },
+    modalCenter: {
+        height: "100%",
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#eeedea',
+    },
+    buttonText: {
+        fontFamily: THEME.FONT_BOLD,
+        color: THEME.COLOR_MAIN_DARK,
+        textAlign: 'center',
+        fontSize: 15,
     },
     center: {
         height: "100%",
@@ -107,8 +200,23 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 14,
     },
+    modalTitleText: {
+        fontWeight: 'bold',
+        fontSize: 20,
+        marginTop: 20,
+        marginBottom: 10,
+        color: THEME.COLOR_MAIN_DARK
+    },
     flatList: {
-        height: "95%",
+        height: "85%",
+        alignItems: 'center',
+        justifyContent: 'center',
+        // borderColor: 'red',
+        // borderStyle: 'solid',
+        // borderWidth: 1,
+    },
+    modalFlatList: {
+        height: "80%",
         alignItems: 'center',
         justifyContent: 'center',
     },
