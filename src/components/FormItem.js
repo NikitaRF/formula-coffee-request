@@ -3,7 +3,7 @@ import {Text, View, StyleSheet, TextInput} from "react-native";
 import {THEME} from "../theme";
 import {useDispatch, useSelector} from "react-redux";
 import {requestKitchen} from "../store/actions/requestKitchen";
-import email from 'react-native-email'
+
 
 
 
@@ -68,11 +68,11 @@ const styles = StyleSheet.create({
     },
     input: {
         width: '100%',
-        height: '100%',
+        minHeight: 40,
         textAlign: 'center',
-        // borderColor: 'red',
-        // borderStyle: 'solid',
-        // borderWidth: 1,
+        borderColor: 'red',
+        borderStyle: 'solid',
+        borderWidth: 1,
     },
     blockTable: {
         borderStyle: 'solid',
@@ -81,19 +81,25 @@ const styles = StyleSheet.create({
         padding: 2,
         paddingVertical: 10,
         alignItems: 'center',
-        height: 40,
+
     },
     nameBlock: {
         width: '50%',
         alignItems: 'left',
+        justifyContent: 'center',
         paddingLeft: 10,
+        whiteSpace: 'normal',
+        paddingVertical: 0,
     },
     characterBlock: {
         width: '15%',
+        paddingVertical: 0,
+        justifyContent: 'center',
     },
     inputBlock: {
         width: '35%',
         paddingVertical: 0,
+
     },
     statusButtonsWrap: {
         marginTop: 15,
