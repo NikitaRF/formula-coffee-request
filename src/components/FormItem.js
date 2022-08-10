@@ -1,11 +1,9 @@
-import React, {useEffect, useState} from "react";
-import {Text, TouchableOpacity, View, StyleSheet, Dimensions, ActivityIndicator} from "react-native";
+import React, {useState} from "react";
+import {Text, View, StyleSheet, TextInput} from "react-native";
 import {THEME} from "../theme";
-import firebase from "firebase";
 import {useDispatch, useSelector} from "react-redux";
-import {TextInput} from "react-native-gesture-handler";
 import {requestKitchen} from "../store/actions/requestKitchen";
-import {useIsFocused} from "@react-navigation/native";
+
 
 
 export const FormItem = ({Item}) => {
@@ -67,6 +65,14 @@ const styles = StyleSheet.create({
         marginVertical: 1,
         backgroundColor: '#eeedea',
     },
+    input: {
+        width: '100%',
+        height: '100%',
+        textAlign: 'center',
+        // borderColor: 'red',
+        // borderStyle: 'solid',
+        // borderWidth: 1,
+    },
     blockTable: {
         borderStyle: 'solid',
         borderColor: THEME.COLOR_MAIN_DARK,
@@ -74,6 +80,7 @@ const styles = StyleSheet.create({
         padding: 2,
         paddingVertical: 10,
         alignItems: 'center',
+        height: 40,
     },
     nameBlock: {
         width: '50%',
@@ -85,6 +92,7 @@ const styles = StyleSheet.create({
     },
     inputBlock: {
         width: '35%',
+        paddingVertical: 0,
     },
     statusButtonsWrap: {
         marginTop: 15,
@@ -101,5 +109,4 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#fff'
     },
-
 })
