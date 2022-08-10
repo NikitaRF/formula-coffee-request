@@ -50,7 +50,7 @@ export const KitchenScreen = () => {
         let message = ''
         itemRequest.forEach( (e) => message += `${e.name} (${e.unit}) - ${e.count} \n`)
 
-        const to = ['bng@itbls.ru'] // string or array of email addresses
+        const to = ['bng@itbls.ru', 'mar1.usacheva@yandex.ru'] // string or array of email addresses
         email(to, {
             // Optional additional arguments
             // cc: ['bazzy@moo.com', 'doooo@daaa.com'], // string or array of email addresses
@@ -171,7 +171,7 @@ export const KitchenScreen = () => {
                     onPress={() => postRequest()}
                     disabled={itemRequest.length ? false : true}
                 >
-                    <Text style={styles.buttonText}>Отправить</Text>
+                    <Text style={ itemRequest.length ? styles.buttonText : styles.buttonTextDisabled}>Отправить</Text>
                 </TouchableOpacity>
         </View>
         </KeyboardAvoidingView>
@@ -208,7 +208,6 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         borderRadius: 5,
         backgroundColor: THEME.COLOR_MAIN_DISABLED_BG,
-        color: THEME.COLOR_MAIN_DISABLED_FONT,
     },
     modalButtons: {
         flexDirection: 'row',
@@ -227,6 +226,12 @@ const styles = StyleSheet.create({
     buttonText: {
         fontFamily: THEME.FONT_BOLD,
         color: THEME.COLOR_MAIN_DARK,
+        textAlign: 'center',
+        fontSize: 15,
+    },
+    buttonTextDisabled: {
+        fontFamily: THEME.FONT_BOLD,
+        color: THEME.COLOR_MAIN_DISABLED_FONT,
         textAlign: 'center',
         fontSize: 15,
     },

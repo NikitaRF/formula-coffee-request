@@ -1,7 +1,7 @@
 export const THEME = {
     COLOR_MAIN_LIGHT: '#eea90b',
-    COLOR_MAIN_DISABLED_BG: '#d2c89b',
-    COLOR_MAIN_DISABLED_FONT: '#7e7b73',
+    COLOR_MAIN_DISABLED_BG: '#ffea8d',
+    COLOR_MAIN_DISABLED_FONT: '#a59e83',
     COLOR_MAIN_PLACEHOLDER: 'rgba(93,30,21,0.36)',
     COLOR_MAIN_DARK: '#5d1e15',
     FONT_MAIN: 'open-regular',
