@@ -11,6 +11,7 @@ import {useIsFocused} from "@react-navigation/native";
 export const FormItem = ({Item}) => {
     const dispatch = useDispatch()
     const valueOfInput = useSelector(state => state.menu.requestKitchen)
+    const findElement = valueOfInput.filter((el) => el.name === Item.name)
 
     const updateInputVal = (val) => {
         dispatch(requestKitchen(Item, val))
@@ -20,13 +21,12 @@ export const FormItem = ({Item}) => {
         if (valueOfInput.length === 0) {
             return ''
         }
-        const findElement = valueOfInput.filter((el) => el.name === Item.name)
         if (findElement.length !== 0) return findElement[0].count
         return ''
     }
 
     return (
-        <View style={styles.mainWrap}>
+        <View style={findElement.length === 0 ? styles.mainWrap : styles.mainWrapSelected}>
             <View style={[styles.blockTable, styles.nameBlock]}>
                 <Text>{Item.name}</Text>
             </View>
@@ -59,6 +59,13 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         marginHorizontal: 10,
         marginVertical: 1,
+    },
+    mainWrapSelected: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        marginHorizontal: 10,
+        marginVertical: 1,
+        backgroundColor: '#eeedea',
     },
     blockTable: {
         borderStyle: 'solid',
