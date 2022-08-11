@@ -6,7 +6,6 @@ import {AppHeaderIcon} from "../components/AppHeaderIcon";
 import {MaterialIcons} from "@expo/vector-icons";
 import {View, StyleSheet, ActivityIndicator} from "react-native";
 import {THEME} from "../theme";
-import { Entypo } from '@expo/vector-icons';
 import {getFormKitchen} from "../store/actions/getFormKitchen";
 import {useDispatch, useSelector} from "react-redux";
 import {clearRequestKitchen} from "../store/actions/clearKitchenRequest";
@@ -54,7 +53,7 @@ export const KitchenNavigation = () =>  {
             )
         })}
         >
-            <Stack.Screen name="Заявка кухня" component={KitchenScreen} />
+            <Stack.Screen name="Заявка бар" component={KitchenScreen} />
         </Stack.Navigator>
     );
 }

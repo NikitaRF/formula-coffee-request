@@ -11,6 +11,7 @@ import {KitchenNavigation} from "./KitchenNavigation";
 import {userLogout} from "../store/actions/userLogout";
 import {AboutAppNavigation} from "./AboutAppNavigation";
 import {MainNavigation} from "./MainNavigation";
+import {BarNavigation} from "./BarNavigation";
 
 
 
@@ -107,10 +108,10 @@ export const MenuDrawer = () => {
 
             <Drawer.Screen
                 name="Бар"
-                component={KitchenNavigation}
+                component={BarNavigation}
                 options={{
-                    drawerIcon: ({focused}) => <MaterialCommunityIcons
-                        name='food-turkey'
+                    drawerIcon: ({focused}) => <MaterialIcons
+                        name='local-bar'
                         size={iconSize}
                         color={focused ? THEME.COLOR_MAIN_LIGHT : THEME.COLOR_MAIN_DARK}
                     />

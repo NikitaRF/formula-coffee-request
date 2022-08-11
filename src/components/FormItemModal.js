@@ -1,10 +1,6 @@
 import React, {useState} from "react";
 import {Text, View, StyleSheet, Dimensions, ActivityIndicator} from "react-native";
 import {THEME} from "../theme";
-import {useDispatch, useSelector} from "react-redux";
-
-import email from "react-native-email";
-
 
 export const FormItemModal = ({Item}) => {
 

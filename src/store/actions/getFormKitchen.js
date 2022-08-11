@@ -1,11 +1,11 @@
-import {GET_FORM_KITCHEN} from "../types";
+import {GET_FORM_BAR, GET_FORM_KITCHEN} from "../types";
 import firebase from "firebase";
 const db = firebase.firestore();
 
 export const getFormKitchen = () => {
-    const getBlankFormKitchenOnDB = async () => {
+    const getBlankFormBarOnDB = async () => {
 
-            const result = await db.collection("/requests/kitchen/form").get().then((querySnapshot) => {
+            const result = await db.collection('/requests/kitchen/form').get().then((querySnapshot) => {
                 let arr = []
                 querySnapshot.forEach((doc) => {
                     //console.log('DOC', doc.data())
@@ -23,11 +23,11 @@ export const getFormKitchen = () => {
     }
 
     return async dispatch => {
-        const dataBlankFormKitchen = await getBlankFormKitchenOnDB()
+        const dataBlankForm = await getBlankFormBarOnDB()
         //console.log('dataBlankFormKitchen', dataBlankFormKitchen)
         dispatch({
             type: GET_FORM_KITCHEN,
-            payload: dataBlankFormKitchen
+            payload: dataBlankForm
         })
     }
 }

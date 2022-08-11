@@ -2,15 +2,15 @@ import React, {useState} from "react";
 import {Text, View, StyleSheet, TextInput, KeyboardAvoidingView} from "react-native";
 import {THEME} from "../theme";
 import {useDispatch, useSelector} from "react-redux";
-import {requestKitchen} from "../store/actions/requestKitchen";
+import {requestBar} from "../store/actions/requestBar";
 
-export const FormItem = ({Item}) => {
+export const FormItemBar = ({Item}) => {
     const dispatch = useDispatch()
-    const valueOfInput = useSelector(state => state.menu.requestKitchen)
+    const valueOfInput = useSelector(state => state.menu.requestBar)
     const findElement = valueOfInput.filter((el) => el.name === Item.name)
 
     const updateInputVal = (val) => {
-        dispatch(requestKitchen(Item, val))
+        dispatch(requestBar(Item, val))
     }
 
     const setValueOfInput = () => {
@@ -22,28 +22,28 @@ export const FormItem = ({Item}) => {
     }
 
     return (
-            <View style={findElement.length === 0 ? styles.mainWrap : styles.mainWrapSelected}>
-                <View style={[styles.blockTable, styles.nameBlock]}>
-                    <Text>{Item.name}</Text>
-                </View>
-                <View style={[styles.blockTable, styles.characterBlock]}>
-                    <Text>{Item.unit}</Text>
-                </View>
-                <View style={[styles.blockTable, styles.inputBlock]}>
-                    <TextInput
-                        autoCorrect={false}
-                        autoCapitalize='none'
-                        keyboardType='numeric'
-                        placeholder='Ввести'
-                        placeholderTextColor={THEME.COLOR_MAIN_PLACEHOLDER}
-                        textContentType='none'
-                        style={styles.input}
-                        maxLength={5}
-                        onChangeText={(val) => updateInputVal(val)}
-                        value={setValueOfInput()}
-                    />
-                </View>
+        <View style={findElement.length === 0 ? styles.mainWrap : styles.mainWrapSelected}>
+            <View style={[styles.blockTable, styles.nameBlock]}>
+                <Text>{Item.name}</Text>
             </View>
+            <View style={[styles.blockTable, styles.characterBlock]}>
+                <Text>{Item.unit}</Text>
+            </View>
+            <View style={[styles.blockTable, styles.inputBlock]}>
+                <TextInput
+                    autoCorrect={false}
+                    autoCapitalize='none'
+                    keyboardType='numeric'
+                    placeholder='Ввести'
+                    placeholderTextColor={THEME.COLOR_MAIN_PLACEHOLDER}
+                    textContentType='none'
+                    style={styles.input}
+                    maxLength={5}
+                    onChangeText={(val) => updateInputVal(val)}
+                    value={setValueOfInput()}
+                />
+            </View>
+        </View>
     )
 }
 

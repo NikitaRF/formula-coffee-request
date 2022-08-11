@@ -10,10 +10,11 @@ import {
 } from "react-native";
 import {THEME} from "../theme";
 
-export const ModalRequestSuccess = ({modalLuckWindow, setModalLuckWindow}) => {
+export const ModalRequestSuccess = ({navigation, modalLuckWindow, setModalLuckWindow}) => {
     const date = new Date()
     const luckModalClose = () => {
         setModalLuckWindow(false)
+        navigation.navigate('Главная')
     }
     return (
         <Modal visible={modalLuckWindow} animationType='slide' transparent={false}>

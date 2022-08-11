@@ -3,23 +3,25 @@ import {ActivityIndicator, KeyboardAvoidingView, Keyboard, FlatList, StyleSheet,
 
 import {THEME} from "../theme";
 import {useDispatch, useSelector} from "react-redux";
-import {getFormKitchen} from "../store/actions/getFormKitchen";
+import {getFormBar} from "../store/actions/getFormBar";
 import {FormItem} from '../components/FormItem'
 import {TouchableOpacity} from "react-native-gesture-handler";
 import {FormItemModal} from "../components/FormItemModal";
 import email from "react-native-email";
 import {clearRequestKitchen} from "../store/actions/clearKitchenRequest";
 import {ModalRequestSuccess} from "../components/ModalRequestSuccess";
+import {clearRequestBar} from "../store/actions/clearRequestBar";
+import {FormItemBar} from "../components/FormItemBar";
 
-export const KitchenScreen = ({navigation}) => {
+export const BarScreen = ({navigation}) => {
     const userDisplayName = useSelector(state => state.user.userAuth)
     //console.log(userDisplayName)
 
     const dispatch = useDispatch()
-    const formData = useSelector(state => state.menu.formKitchen)
+    const formData = useSelector(state => state.menu.formBar)
     // console.log("FORMDATA", formData)
 
-    const itemRequest = useSelector(state => state.menu.requestKitchen)
+    const itemRequest = useSelector(state => state.menu.requestBar)
     //console.log('ItemREQUEST', itemRequest)
 
     const [modal, setModal] = useState(false)
@@ -50,7 +52,7 @@ export const KitchenScreen = ({navigation}) => {
             // Optional additional arguments
             // cc: ['bazzy@moo.com', 'doooo@daaa.com'], // string or array of email addresses
             // bcc: 'mee@mee.com', // string or array of email addresses
-            subject: `Заявка кухня, ${currentDate}`,
+            subject: `Заявка бар, ${currentDate}`,
             body: `Заявку составил ${userDisplayName} \n\n ${message}`,
             checkCanOpen: false // Call Linking.canOpenURL prior to Linking.openURL
         }).catch(console.error)
@@ -60,8 +62,8 @@ export const KitchenScreen = ({navigation}) => {
         setState({
             isLoading: true,
         })
-        await dispatch(getFormKitchen())
-        dispatch(clearRequestKitchen())
+        await dispatch(getFormBar())
+        dispatch(clearRequestBar())
         setState({
             isLoading: false,
         })
@@ -76,7 +78,7 @@ export const KitchenScreen = ({navigation}) => {
         setState({
             isLoading: true,
         })
-        await dispatch(getFormKitchen())
+        await dispatch(getFormBar())
         setState({
             isLoading: false,
         })
@@ -162,7 +164,7 @@ export const KitchenScreen = ({navigation}) => {
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             style={styles.container}>
-        <View style={styles.center}>
+            <View style={styles.center}>
                 <View style={styles.titleBlock}>
                     <View style={[styles.blockTable, styles.nameBlock]}>
                         <Text style={styles.titleText}>Наименование</Text>
@@ -179,7 +181,7 @@ export const KitchenScreen = ({navigation}) => {
                         data={formData}
                         keyExtractor={(menu) => menu.name}
                         refreshing={true}
-                        renderItem={({item}) => <FormItem Item={item} /> }
+                        renderItem={({item}) => <FormItemBar Item={item} /> }
                     />
                 </View>
                 <TouchableOpacity
@@ -189,7 +191,7 @@ export const KitchenScreen = ({navigation}) => {
                 >
                     <Text style={ itemRequest.length ? styles.buttonText : styles.buttonTextDisabled}>Отправить</Text>
                 </TouchableOpacity>
-        </View>
+            </View>
         </KeyboardAvoidingView>
 
     )
