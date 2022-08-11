@@ -1,10 +1,10 @@
 import React from "react";
-import {Text, View, StyleSheet, TextInput, KeyboardAvoidingView} from "react-native";
+import {Text, View, StyleSheet, TextInput} from "react-native";
 import {THEME} from "../theme";
 import {useDispatch, useSelector} from "react-redux";
 import {requestKitchen} from "../store/actions/requestKitchen";
 
-export const FormItem = ({Item}) => {
+export const FormItemKitchen = ({Item}) => {
     const dispatch = useDispatch()
     const valueOfInput = useSelector(state => state.menu.requestKitchen)
     const findElement = valueOfInput.filter((el) => el.name === Item.name)

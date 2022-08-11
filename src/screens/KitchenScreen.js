@@ -3,7 +3,7 @@ import {ActivityIndicator, KeyboardAvoidingView, Keyboard, FlatList, StyleSheet,
 import {THEME} from "../theme";
 import {useDispatch, useSelector} from "react-redux";
 import {getFormKitchen} from "../store/actions/getFormKitchen";
-import {FormItem} from '../components/FormItem'
+import {FormItemKitchen} from '../components/FormItemKitchen'
 import {TouchableOpacity} from "react-native-gesture-handler";
 import {FormItemModal} from "../components/FormItemModal";
 import email from "react-native-email";
@@ -173,7 +173,7 @@ export const KitchenScreen = ({navigation}) => {
                         data={formData}
                         keyExtractor={(menu) => menu.name}
                         refreshing={true}
-                        renderItem={({item}) => <FormItem Item={item} /> }
+                        renderItem={({item}) => <FormItemKitchen Item={item} /> }
                     />
                 </View>
                 <TouchableOpacity

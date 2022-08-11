@@ -4,9 +4,7 @@ import React from "react";
 import {HeaderButtons, Item} from "react-navigation-header-buttons";
 import {AppHeaderIcon} from "../components/AppHeaderIcon";
 
-
 const Stack = createStackNavigator();
-
 export const MainNavigation = () =>  {
 
     return (

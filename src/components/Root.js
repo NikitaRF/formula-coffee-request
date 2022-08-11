@@ -2,10 +2,8 @@ import {DefaultTheme, NavigationContainer} from "@react-navigation/native";
 import React from "react";
 import {createStackNavigator} from "@react-navigation/stack";
 import {useSelector} from "react-redux";
-
 import {SignInScreen} from "../screens/SignInScreen";
 import {MenuDrawer} from "../navigation/MenuDrawer";
-
 
 const MyTheme = {
     ...DefaultTheme,

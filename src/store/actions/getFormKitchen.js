@@ -1,4 +1,4 @@
-import {GET_FORM_BAR, GET_FORM_KITCHEN} from "../types";
+import {GET_FORM_KITCHEN} from "../types";
 import firebase from "firebase";
 const db = firebase.firestore();
 

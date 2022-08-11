@@ -1,6 +1,4 @@
 import * as Font from 'expo-font'
-import {useDispatch, useSelector} from "react-redux";
-import {userAuth} from "./store/actions/userAuth";
 
 export const bootstrap = async () => {
     try {

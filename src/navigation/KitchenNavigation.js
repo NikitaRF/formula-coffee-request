@@ -1,13 +1,13 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import {KitchenScreen} from "../screens/KitchenScreen";
-import React, {useState} from "react";
+import React from "react";
 import {HeaderButtons, Item} from "react-navigation-header-buttons";
 import {AppHeaderIcon} from "../components/AppHeaderIcon";
 import {MaterialIcons} from "@expo/vector-icons";
 import {View, StyleSheet, ActivityIndicator} from "react-native";
 import {THEME} from "../theme";
 import {getFormKitchen} from "../store/actions/getFormKitchen";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {clearRequestKitchen} from "../store/actions/clearKitchenRequest";
 
 const Stack = createStackNavigator();

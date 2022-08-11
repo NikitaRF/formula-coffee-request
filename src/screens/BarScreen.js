@@ -1,5 +1,5 @@
-import React, {useEffect, useReducer, useState} from "react";
-import {ActivityIndicator, KeyboardAvoidingView, Keyboard, FlatList, StyleSheet, Text, View, Modal} from "react-native";
+import React, {useEffect, useState} from "react";
+import {ActivityIndicator, KeyboardAvoidingView, FlatList, StyleSheet, Text, View, Modal} from "react-native";
 import {THEME} from "../theme";
 import {useDispatch, useSelector} from "react-redux";
 import {getFormBar} from "../store/actions/getFormBar";
@@ -26,8 +26,6 @@ export const BarScreen = ({navigation}) => {
         isLoading: false
     })
     const [modalLuckWindow, setModalLuckWindow] = useState(false)
-
-
 
     const handleEmail = () => {
         const nowDate = new Date()
@@ -80,8 +78,6 @@ export const BarScreen = ({navigation}) => {
             isLoading: false,
         })
     }
-
-
 
     const postRequest = () => {
         setModal(true)
@@ -295,9 +291,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingBottom: 25,
-        // borderColor: 'red',
-        // borderStyle: 'solid',
-        // borderWidth: 1,
     },
     modalFlatList: {
         height: "80%",
@@ -305,30 +298,3 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 })
-
-
-
-
-// // выборка из БД, пример
-// const db = firebase.firestore();
-// db.collection('users').get().then((querySnapshot) => {
-//     querySnapshot.forEach((doc) => {
-//         // doc.data() is never undefined for query doc snapshots
-//         let res = doc.data().historyOfOrder.filter(function (el) {
-//             return el.status === 'В обработке'
-//         })
-//         //console.log(res)
-//     });
-// })
-
-// const [refreshing, setRefreshing] = useState(false);
-// const onRefresh = useCallback(() => {
-//     setRefreshing(true);
-//     // dispatch(getOrders(menuSelected.currentMenuSelected)).then(() => setRefreshing(false));
-// }, [menuSelected.currentMenuSelected]);
-//
-// const menuToggle = (item) => {
-//     setMenuSelected({
-//         currentMenuSelected: item
-//     })
-// }

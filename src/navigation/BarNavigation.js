@@ -1,11 +1,11 @@
 import {createStackNavigator} from '@react-navigation/stack';
-import React, {useState} from "react";
+import React from "react";
 import {HeaderButtons, Item} from "react-navigation-header-buttons";
 import {AppHeaderIcon} from "../components/AppHeaderIcon";
 import {MaterialIcons} from "@expo/vector-icons";
-import {View, StyleSheet, ActivityIndicator} from "react-native";
+import {View} from "react-native";
 import {THEME} from "../theme";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {BarScreen} from "../screens/BarScreen";
 import {clearRequestBar} from "../store/actions/clearRequestBar";
 import {getFormBar} from "../store/actions/getFormBar";

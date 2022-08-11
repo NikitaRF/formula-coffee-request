@@ -44,7 +44,6 @@ const styles = StyleSheet.create({
         marginHorizontal: 25,
     },
     containerLuck: {
-        //flex: 1,
         alignItems: 'center',
         marginTop: '35%',
     },

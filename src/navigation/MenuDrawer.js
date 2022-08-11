@@ -18,7 +18,6 @@ function CustomDrawerContent(props) {
     const userDisplayName = useSelector(state => state.user.userAuth)
     //console.log('UID', firebase.auth().currentUser.uid)
 
-
     const signOut = () => {
         if (firebase.auth().currentUser) {
             firebase.auth().signOut().then(() => {
@@ -141,7 +140,6 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingRight: 20,
         paddingBottom: 15,
-
     },
     infoBlock:{
         height: 120,
@@ -164,7 +162,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         marginBottom: 20,
-
     },
     copyrightText:{
         color: THEME.COLOR_MAIN_DARK
@@ -186,7 +183,6 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 0,
         top: -12,
-
     },
     basketMarker: {
         color: THEME.COLOR_MAIN_DARK,

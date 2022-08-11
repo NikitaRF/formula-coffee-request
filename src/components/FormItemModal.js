@@ -1,9 +1,8 @@
 import React from "react";
-import {Text, View, StyleSheet, Dimensions, ActivityIndicator} from "react-native";
+import {Text, View, StyleSheet} from "react-native";
 import {THEME} from "../theme";
 
 export const FormItemModal = ({Item}) => {
-
     return (
         <View style={styles.mainWrap}>
             <View style={[styles.blockTable, styles.nameBlock]}>
@@ -18,8 +17,6 @@ export const FormItemModal = ({Item}) => {
         </View>
     )
 }
-
-
 
 const styles = StyleSheet.create({
     mainWrap: {

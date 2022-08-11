@@ -1,4 +1,4 @@
-import {GET_USERS_INFO, USER_AUTH, USER_LOGOUT, ADD_ORDER, GET_ORDER} from '../types'
+import {GET_USERS_INFO, USER_AUTH, USER_LOGOUT} from '../types'
 
 const initialState = {
     userAuth: null,
