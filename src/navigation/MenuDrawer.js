@@ -9,6 +9,8 @@ import {useDispatch, useSelector} from "react-redux";
 import { THEME } from "../theme";
 import {KitchenNavigation} from "./KitchenNavigation";
 import {userLogout} from "../store/actions/userLogout";
+import {AboutAppNavigation} from "./AboutAppNavigation";
+import {MainNavigation} from "./MainNavigation";
 
 
 
@@ -79,6 +81,17 @@ export const MenuDrawer = () => {
                 inactiveTintColor: THEME.COLOR_MAIN_DARK,
             }}
         >
+            <Drawer.Screen
+                name="Главная"
+                component={MainNavigation}
+                options={{
+                    drawerIcon: ({focused}) => <AntDesign
+                        name='home'
+                        size={iconSize}
+                        color={focused ? THEME.COLOR_MAIN_LIGHT : THEME.COLOR_MAIN_DARK}
+                    />
+                }}
+            />
 
             <Drawer.Screen
                 name="Кухня"
@@ -86,6 +99,30 @@ export const MenuDrawer = () => {
                 options={{
                     drawerIcon: ({focused}) => <MaterialCommunityIcons
                         name='food-turkey'
+                        size={iconSize}
+                        color={focused ? THEME.COLOR_MAIN_LIGHT : THEME.COLOR_MAIN_DARK}
+                    />
+                }}
+            />
+
+            <Drawer.Screen
+                name="Бар"
+                component={KitchenNavigation}
+                options={{
+                    drawerIcon: ({focused}) => <MaterialCommunityIcons
+                        name='food-turkey'
+                        size={iconSize}
+                        color={focused ? THEME.COLOR_MAIN_LIGHT : THEME.COLOR_MAIN_DARK}
+                    />
+                }}
+            />
+
+            <Drawer.Screen
+                name="О приложении"
+                component={AboutAppNavigation}
+                options={{
+                    drawerIcon: ({focused}) => <AntDesign
+                        name='info'
                         size={iconSize}
                         color={focused ? THEME.COLOR_MAIN_LIGHT : THEME.COLOR_MAIN_DARK}
                     />
