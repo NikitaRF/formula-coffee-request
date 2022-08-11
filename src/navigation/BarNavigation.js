@@ -1,5 +1,4 @@
 import {createStackNavigator} from '@react-navigation/stack';
-import {KitchenScreen} from "../screens/KitchenScreen";
 import React, {useState} from "react";
 import {HeaderButtons, Item} from "react-navigation-header-buttons";
 import {AppHeaderIcon} from "../components/AppHeaderIcon";
@@ -19,7 +18,6 @@ export const BarNavigation = () =>  {
     const clearForm = () => {
         dispatch(clearRequestBar())
     }
-
     const updateForm = async () => {
         await dispatch(getFormBar())
         dispatch(clearRequestBar())
@@ -58,18 +56,6 @@ export const BarNavigation = () =>  {
         </Stack.Navigator>
     );
 }
-
-
-const styles = StyleSheet.create({
-    preloader: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: '50%',
-        bottom: 0,
-        backgroundColor: '#fff'
-    },
-})
 
 
 

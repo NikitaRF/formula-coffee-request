@@ -1,20 +1,16 @@
-import React, {useEffect, useState} from "react";
-import {Text, Image, StyleSheet, View, Linking, Button, TouchableOpacity} from "react-native";
-import {createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList} from "@react-navigation/drawer";
-import {AntDesign, FontAwesome, MaterialCommunityIcons, FontAwesome5, MaterialIcons, SimpleLineIcons} from '@expo/vector-icons';
+import React from "react";
+import {Text, Image, StyleSheet, View, Linking, TouchableOpacity} from "react-native";
+import {createDrawerNavigator, DrawerItemList} from "@react-navigation/drawer";
+import {AntDesign, MaterialCommunityIcons, MaterialIcons} from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import firebase from "firebase";
 import {useDispatch, useSelector} from "react-redux";
-
 import { THEME } from "../theme";
 import {KitchenNavigation} from "./KitchenNavigation";
 import {userLogout} from "../store/actions/userLogout";
 import {AboutAppNavigation} from "./AboutAppNavigation";
 import {MainNavigation} from "./MainNavigation";
 import {BarNavigation} from "./BarNavigation";
-
-
-
 
 
 function CustomDrawerContent(props) {
@@ -72,7 +68,6 @@ function CustomDrawerContent(props) {
 export const MenuDrawer = () => {
     const Drawer = createDrawerNavigator();
     const iconSize = 20;
-
     return (
         <Drawer.Navigator
             drawerType='front'
@@ -191,10 +186,6 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 0,
         top: -12,
-
-    },
-    markerCircle: {
-        //backgroundColor: THEME.COLOR_MAIN_LIGHT,
 
     },
     basketMarker: {

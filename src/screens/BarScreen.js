@@ -1,14 +1,11 @@
 import React, {useEffect, useReducer, useState} from "react";
 import {ActivityIndicator, KeyboardAvoidingView, Keyboard, FlatList, StyleSheet, Text, View, Modal} from "react-native";
-
 import {THEME} from "../theme";
 import {useDispatch, useSelector} from "react-redux";
 import {getFormBar} from "../store/actions/getFormBar";
-import {FormItem} from '../components/FormItem'
 import {TouchableOpacity} from "react-native-gesture-handler";
 import {FormItemModal} from "../components/FormItemModal";
 import email from "react-native-email";
-import {clearRequestKitchen} from "../store/actions/clearKitchenRequest";
 import {ModalRequestSuccess} from "../components/ModalRequestSuccess";
 import {clearRequestBar} from "../store/actions/clearRequestBar";
 import {FormItemBar} from "../components/FormItemBar";
