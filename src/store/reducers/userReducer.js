@@ -23,14 +23,6 @@ export const userReducer = (state = initialState, action) => {
             userHistoryOfOrder: [],
             isLoading: false,
         }
-        case ADD_ORDER: return {
-            ...state,
-            userHistoryOfOrder: action.payload
-        }
-        case GET_ORDER: return {
-            ...state,
-            userHistoryOfOrder: action.payload
-        }
     }
 
     return state
