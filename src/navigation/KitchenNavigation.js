@@ -3,7 +3,7 @@ import {KitchenScreen} from "../screens/KitchenScreen";
 import React, {useState} from "react";
 import {HeaderButtons, Item} from "react-navigation-header-buttons";
 import {AppHeaderIcon} from "../components/AppHeaderIcon";
-import {Foundation, MaterialIcons} from "@expo/vector-icons";
+import {MaterialIcons} from "@expo/vector-icons";
 import {View, StyleSheet, ActivityIndicator} from "react-native";
 import {THEME} from "../theme";
 import { Entypo } from '@expo/vector-icons';
@@ -37,14 +37,14 @@ export const KitchenNavigation = () =>  {
             ), headerRight: () => (
 
                 <View style={{marginRight: 20, flexDirection: 'row'}}>
-                    <Entypo
+                    <MaterialIcons
                         style={{marginRight: 25}}
-                        name="download"
+                        name="file-download"
                         size={24}
                         color={THEME.COLOR_MAIN_DARK}
                         onPress={() => updateForm()}
                     />
-                    <Foundation
+                    <MaterialIcons
                         name="refresh"
                         size={24}
                         color={THEME.COLOR_MAIN_DARK}
