@@ -3,7 +3,7 @@ import {KitchenScreen} from "../screens/KitchenScreen";
 import React, {useState} from "react";
 import {HeaderButtons, Item} from "react-navigation-header-buttons";
 import {AppHeaderIcon} from "../components/AppHeaderIcon";
-import {MaterialIcons} from "@expo/vector-icons";
+import {Foundation, MaterialIcons} from "@expo/vector-icons";
 import {View, StyleSheet, ActivityIndicator} from "react-native";
 import {THEME} from "../theme";
 import { Entypo } from '@expo/vector-icons';
@@ -44,8 +44,8 @@ export const KitchenNavigation = () =>  {
                         color={THEME.COLOR_MAIN_DARK}
                         onPress={() => updateForm()}
                     />
-                    <MaterialIcons
-                        name="update"
+                    <Foundation
+                        name="refresh"
                         size={24}
                         color={THEME.COLOR_MAIN_DARK}
                         onPress={() => clearForm()}
