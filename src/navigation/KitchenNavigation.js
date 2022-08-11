@@ -14,30 +14,13 @@ const Stack = createStackNavigator();
 
 export const KitchenNavigation = () =>  {
     const dispatch = useDispatch()
-    const [state, setState] = useState({
-        isLoading: false
-    })
 
-    const updateForm = () => {
-        setState({
-            ...state,
-            isLoading: true,
-        })
-        dispatch(getFormKitchen())
+
+    const updateForm = async () => {
+        await dispatch(getFormKitchen())
         dispatch(clearRequestKitchen())
-        setState({
-            ...state,
-            isLoading: false,
-        })
     }
 
-    if(state.isLoading){
-        return (
-            <View style={styles.preloader}>
-                <ActivityIndicator size="large" color={THEME.COLOR_MAIN_DARK}/>
-            </View>
-        )
-    }
 
     return (
         <Stack.Navigator
@@ -67,7 +50,14 @@ export const KitchenNavigation = () =>  {
 
 
 const styles = StyleSheet.create({
-
+    preloader: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: '50%',
+        bottom: 0,
+        backgroundColor: '#fff'
+    },
 })
 
 

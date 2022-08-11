@@ -20,7 +20,7 @@ export const KitchenScreen = () => {
     // console.log("FORMDATA", formData)
 
     const itemRequest = useSelector(state => state.menu.requestKitchen)
-    console.log('ItemREQUEST', itemRequest)
+    //console.log('ItemREQUEST', itemRequest)
 
     const [modal, setModal] = useState(false)
     const [state, setState] = useState({
@@ -28,13 +28,7 @@ export const KitchenScreen = () => {
     })
     const [modalLuckWindow, setModalLuckWindow] = useState(false)
 
-    if(state.isLoading){
-        return (
-            <View style={styles.preloader}>
-                <ActivityIndicator size="large" color={THEME.COLOR_MAIN_DARK}/>
-            </View>
-        )
-    }
+
 
     const handleEmail = () => {
         const nowDate = new Date()
@@ -62,43 +56,56 @@ export const KitchenScreen = () => {
         }).catch(console.error)
     }
 
-    const updateForm = () => {
+    const updateForm = async () => {
         setState({
-            ...state,
             isLoading: true,
         })
-        dispatch(getFormKitchen())
+        await dispatch(getFormKitchen())
         dispatch(clearRequestKitchen())
         setState({
-            ...state,
             isLoading: false,
         })
     }
 
+
     useEffect(() => {
+        loadFormData()
+    }, [])
+
+    const loadFormData = async () => {
         setState({
-            ...state,
             isLoading: true,
         })
-        dispatch(getFormKitchen())
+        await dispatch(getFormKitchen())
         setState({
-            ...state,
             isLoading: false,
         })
-    }, [])
+    }
+
+
 
     const postRequest = () => {
         setModal(true)
     }
-    const acceptRequest = () => {
+    const acceptRequest = async () => {
         setModal(false)
         handleEmail()
-        updateForm()
+        await updateForm()
         setModalLuckWindow(true)
     }
     const canselRequest = () => {
         setModal(false)
     }
+
+
+    if(state.isLoading){
+        return (
+            <View style={styles.preloader}>
+                <ActivityIndicator size="large" color={THEME.COLOR_MAIN_DARK}/>
+            </View>
+        )
+    }
+
     // Модалка успеха заявки
     if (modalLuckWindow) {
         return (
