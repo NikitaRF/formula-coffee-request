@@ -6,6 +6,7 @@ import {AppHeaderIcon} from "../components/AppHeaderIcon";
 import {MaterialIcons} from "@expo/vector-icons";
 import {View, StyleSheet, ActivityIndicator} from "react-native";
 import {THEME} from "../theme";
+import { Entypo } from '@expo/vector-icons';
 import {getFormKitchen} from "../store/actions/getFormKitchen";
 import {useDispatch, useSelector} from "react-redux";
 import {clearRequestKitchen} from "../store/actions/clearKitchenRequest";
@@ -15,12 +16,14 @@ const Stack = createStackNavigator();
 export const KitchenNavigation = () =>  {
     const dispatch = useDispatch()
 
+    const clearForm = () => {
+        dispatch(clearRequestKitchen())
+    }
 
     const updateForm = async () => {
         await dispatch(getFormKitchen())
         dispatch(clearRequestKitchen())
     }
-
 
     return (
         <Stack.Navigator
@@ -32,12 +35,20 @@ export const KitchenNavigation = () =>  {
                     onPress={() => navigation.toggleDrawer()}/>
                 </HeaderButtons>
             ), headerRight: () => (
-                <View style={{marginRight: 20}}>
+
+                <View style={{marginRight: 20, flexDirection: 'row'}}>
+                    <Entypo
+                        style={{marginRight: 25}}
+                        name="download"
+                        size={24}
+                        color={THEME.COLOR_MAIN_DARK}
+                        onPress={() => updateForm()}
+                    />
                     <MaterialIcons
                         name="update"
                         size={24}
                         color={THEME.COLOR_MAIN_DARK}
-                        onPress={() => updateForm()}
+                        onPress={() => clearForm()}
                     />
                 </View>
             )
