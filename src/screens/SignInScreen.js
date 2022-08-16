@@ -8,7 +8,7 @@ import {
     ActivityIndicator,
     Alert,
     TouchableWithoutFeedback,
-    Keyboard, TouchableOpacity
+    Keyboard, TouchableOpacity, KeyboardAvoidingView, Modal
 } from "react-native";
 import firebase from '../database/firebase';
 import { Ionicons } from '@expo/vector-icons';
@@ -122,6 +122,9 @@ export const SignInScreen = ({navigation}) => {
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+            <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                style={styles.containerKeyBoard}>
             <View style={styles.container}>
                 <Image
                     style={styles.logo}
@@ -175,11 +178,15 @@ export const SignInScreen = ({navigation}) => {
 
                 </View>
             </View>
+            </KeyboardAvoidingView>
         </TouchableWithoutFeedback>
     )
 }
 
 const styles = StyleSheet.create({
+    containerKeyBoard: {
+
+    },
     container: {
         //flex: 1,
         alignItems: 'center',

@@ -59,7 +59,7 @@ export const BarScreen = ({navigation}) => {
             // cc: ['bazzy@moo.com', 'doooo@daaa.com'], // string or array of email addresses
             // bcc: 'mee@mee.com', // string or array of email addresses
             subject: `Заявка бар, ${currentDate}`,
-            body: `Заявку составил ${userDisplayName} \n\n ${message} \n\n Комментарий: \n\n ${stateComment}`,
+            body: `Заявку составил ${userDisplayName} \n\n ${message} \n\n Комментарий: \n ${stateComment}`,
             checkCanOpen: false // Call Linking.canOpenURL prior to Linking.openURL
         }).catch(console.error)
     }
@@ -128,6 +128,9 @@ export const BarScreen = ({navigation}) => {
     if (modal) {
         return (
             <Modal visible={modal} animationType='slide' transparent={false}>
+                <KeyboardAvoidingView
+                    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                    style={styles.container}>
                 <View style={styles.modalCenter}>
                     <Text style={styles.modalTitleText}>Подтвердите заявку</Text>
                     <View style={styles.titleBlock}>
@@ -181,6 +184,7 @@ export const BarScreen = ({navigation}) => {
                         </TouchableOpacity>
                     </View>
                 </View>
+                </KeyboardAvoidingView>
             </Modal>
         )
     }
@@ -223,7 +227,9 @@ export const BarScreen = ({navigation}) => {
 }
 
 const styles = StyleSheet.create({
+    containerKeyBoard: {
 
+    },
     preloader: {
         position: 'absolute',
         left: 0,
