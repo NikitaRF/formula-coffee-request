@@ -21,8 +21,9 @@ import {FormItemBar} from "../components/FormItemBar";
 
 export const BarScreen = ({navigation}) => {
     const userDisplayName = useSelector(state => state.user.userAuth)
-    const [stateComment, setStateComment] = useState()
+    const [stateComment, setStateComment] = useState('')
     //console.log(userDisplayName)
+    console.log(stateComment)
 
     const dispatch = useDispatch()
     const formData = useSelector(state => state.menu.formBar)
@@ -160,7 +161,7 @@ export const BarScreen = ({navigation}) => {
                                 textContentType='none'
                                 style={styles.input}
                                 maxLength={435}
-                                onChange={(val) => changeTextToComment(val)}
+                                onChangeText={(val) => changeTextToComment(val)}
                                 value={stateComment}
                             />
                         </View>
