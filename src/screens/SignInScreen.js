@@ -16,11 +16,11 @@ import { Ionicons } from '@expo/vector-icons';
 import {THEME} from "../theme";
 import {useDispatch, useSelector} from "react-redux";
 import {userAuth} from "../store/actions/userAuth";
+import {getUserInfo} from "../store/actions/getUserInfo";
 
 
 export const SignInScreen = ({navigation}) => {
     const dispatch = useDispatch()
-
     const [state, setState] = useState({
         email: '',
         password: '',
@@ -71,7 +71,33 @@ export const SignInScreen = ({navigation}) => {
                             password: '',
                         })
                         dispatch(userAuth())
+                        dispatch(getUserInfo())
                         navigation.navigate('MenuDrawer')
+
+                        // // Вручную обновляем данные пользователя (DisplayName)
+                        // const user = firebase.auth().currentUser;
+                        // user.updateProfile({
+                        //     displayName: "Новосельцев С.С.",
+                        // }).then(() => {
+                        //     // Update successful
+                        //     // ...
+                        // }).catch((error) => {
+                        //     // An error occurred
+                        //     // ...
+                        // });
+                        //
+                        // // Вручную заносим данные пользователя в базу
+                        // const db = firebase.firestore();
+                        // db.collection("users").doc(res.user.uid).set({
+                        //     id: res.user.uid,
+                        //     firstName: 'Сергей',
+                        //     lastName: 'Новосельцев',
+                        //     email: 'serg@formula-coffee.ru',
+                        //     jobTitle: 'Старший бариста'
+                        // }).then(() => {
+                        //     console.log("Document successfully written!");
+                        // })
+
                     } else {
                         Alert.alert('Подтвердите Email')
                         setState({
@@ -93,9 +119,6 @@ export const SignInScreen = ({navigation}) => {
                 })
         }
     }
-
-
-
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -155,8 +178,6 @@ export const SignInScreen = ({navigation}) => {
         </TouchableWithoutFeedback>
     )
 }
-
-
 
 const styles = StyleSheet.create({
     container: {

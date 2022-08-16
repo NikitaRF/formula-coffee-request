@@ -12,11 +12,13 @@ import {AboutAppNavigation} from "./AboutAppNavigation";
 import {MainNavigation} from "./MainNavigation";
 import {BarNavigation} from "./BarNavigation";
 
-
 function CustomDrawerContent(props) {
+    const currentYear = new Date().getFullYear()
     const dispatch = useDispatch()
+    const userData = useSelector(state => state.user.userInfo)
     const userDisplayName = useSelector(state => state.user.userAuth)
-    //console.log('UID', firebase.auth().currentUser.uid)
+    // console.log('UID', firebase.auth().currentUser.uid)
+    // console.log(userDisplayName)
 
     const signOut = () => {
         if (firebase.auth().currentUser) {
@@ -27,7 +29,6 @@ function CustomDrawerContent(props) {
         }
     }
 
-    const currentYear = new Date().getFullYear()
     return (
         //<DrawerContentScrollView {...props}>
             <View style={styles.mainWrapper}>
@@ -37,8 +38,10 @@ function CustomDrawerContent(props) {
                         source={require('../../assets/logo2.png')}
                     />
                     <View style={styles.infoBlock}>
-                        <Text style={styles.infoBlockText}>Привет!</Text>
+                        <Text style={styles.infoBlockTitle}>Привет!</Text>
                         <Text style={styles.infoBlockText}>{userDisplayName}</Text>
+                        <Text style={{...styles.infoBlockTitle, marginTop: 'auto'}}>Должность</Text>
+                        <Text style={styles.infoBlockText}>{userData.jobTitle}</Text>
                         <TouchableOpacity
                             style={styles.buttonSignOutWrap}
                             onPress={() => signOut()}
@@ -128,7 +131,7 @@ export const MenuDrawer = () => {
 }
 
 const styles = StyleSheet.create({
-    mainWrapper:{
+    mainWrapper: {
         flexDirection: 'column',
         flex: 1,
         paddingTop: 50,
@@ -145,8 +148,12 @@ const styles = StyleSheet.create({
         height: 120,
         maxWidth: '50%',
     },
+    infoBlockTitle:{
+        color: THEME.COLOR_MAIN_DARK,
+        fontWeight: 'bold',
+    },
     infoBlockText:{
-        color: THEME.COLOR_MAIN_DARK
+        color: THEME.COLOR_MAIN_DARK,
     },
     logo: {
         width: 95,

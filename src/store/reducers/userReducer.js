@@ -3,7 +3,6 @@ import {GET_USERS_INFO, USER_AUTH, USER_LOGOUT} from '../types'
 const initialState = {
     userAuth: null,
     userInfo: {},
-    userHistoryOfOrder: [],
     isLoading: false,
 }
 
@@ -24,6 +23,5 @@ export const userReducer = (state = initialState, action) => {
             isLoading: false,
         }
     }
-
     return state
 }
