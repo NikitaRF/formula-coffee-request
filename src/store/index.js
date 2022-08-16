@@ -1,12 +1,12 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from 'redux-thunk';
 import {userReducer} from "./reducers/userReducer";
-import {kitchenReducer} from "./reducers/kitchenReducer";
+import {formsReducer} from "./reducers/formsReducer";
 
 
 const rootReducer = combineReducers({
     user: userReducer,
-    menu: kitchenReducer,
+    menu: formsReducer,
 })
 
 export default createStore(rootReducer, applyMiddleware(thunk))

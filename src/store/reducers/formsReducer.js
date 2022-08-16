@@ -16,7 +16,7 @@ const initialState = {
     requestBar: [],
 }
 
-export const kitchenReducer = (state = initialState, action) => {
+export const formsReducer = (state = initialState, action) => {
     switch (action.type) {
           case GET_FORM_KITCHEN: return {
             ...state,

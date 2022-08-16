@@ -13,7 +13,21 @@ export const getFormBar = () => {
                 // console.log(doc.id, " => ", doc.data());
                 // arr.push({[doc.id]: doc.data()})
                 arr.push(doc.data())
+
             });
+           // Сортировка по категориям. Сначала сортируются существующие категории, если категории нет, идет в конец
+            arr.sort(function (a, b) {
+                if (b.category === undefined) return -1
+                if (a.category > b.category) {
+                    return 1;
+                }
+                if (a.category < b.category) {
+                    return -1;
+                }
+                // a должно быть равным b
+                return 0;
+            });
+            // console.log('SORTED', arr)
             return arr
 
         }).catch((error) => {
