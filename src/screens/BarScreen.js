@@ -1,5 +1,14 @@
 import React, {useEffect, useState} from "react";
-import {ActivityIndicator, KeyboardAvoidingView, FlatList, StyleSheet, Text, View, Modal} from "react-native";
+import {
+    ActivityIndicator,
+    KeyboardAvoidingView,
+    FlatList,
+    StyleSheet,
+    Text,
+    View,
+    Modal,
+    TextInput
+} from "react-native";
 import {THEME} from "../theme";
 import {useDispatch, useSelector} from "react-redux";
 import {getFormBar} from "../store/actions/getFormBar";
@@ -12,6 +21,7 @@ import {FormItemBar} from "../components/FormItemBar";
 
 export const BarScreen = ({navigation}) => {
     const userDisplayName = useSelector(state => state.user.userAuth)
+    const [stateComment, setStateComment] = useState()
     //console.log(userDisplayName)
 
     const dispatch = useDispatch()
@@ -48,7 +58,7 @@ export const BarScreen = ({navigation}) => {
             // cc: ['bazzy@moo.com', 'doooo@daaa.com'], // string or array of email addresses
             // bcc: 'mee@mee.com', // string or array of email addresses
             subject: `Заявка бар, ${currentDate}`,
-            body: `Заявку составил ${userDisplayName} \n\n ${message}`,
+            body: `Заявку составил ${userDisplayName} \n\n ${message} \n\n Комментарий: \n\n ${stateComment}`,
             checkCanOpen: false // Call Linking.canOpenURL prior to Linking.openURL
         }).catch(console.error)
     }
@@ -62,6 +72,10 @@ export const BarScreen = ({navigation}) => {
         setState({
             isLoading: false,
         })
+    }
+
+    const changeTextToComment = (val) => {
+        setStateComment(val)
     }
 
 
@@ -134,6 +148,23 @@ export const BarScreen = ({navigation}) => {
                             renderItem={({item}) => <FormItemModal Item={item} /> }
                         />
                     </View>
+                    <View style={styles.blockComment}>
+                        <Text style={styles.commentTitle}>Комментарий</Text>
+                        <View style={[styles.blockTableComment, styles.inputBlockComment]}>
+                            <TextInput
+                                autoCorrect={false}
+                                multiline = {true}
+                                autoCapitalize='none'
+                                placeholder='Оставить комментарий'
+                                placeholderTextColor={THEME.COLOR_MAIN_PLACEHOLDER}
+                                textContentType='none'
+                                style={styles.input}
+                                maxLength={435}
+                                onChange={(val) => changeTextToComment(val)}
+                                value={stateComment}
+                            />
+                        </View>
+                    </View>
                     <View style={styles.modalButtons}>
                         <TouchableOpacity
                             style={styles.buttonWrap}
@@ -199,6 +230,48 @@ const styles = StyleSheet.create({
         top: '50%',
         bottom: 0,
         backgroundColor: '#fff'
+    },
+    blockComment: {
+        height: "18%",
+        marginTop: 5,
+        paddingHorizontal: 10,
+        // alignItems: 'center',
+        width: '100%',
+    },
+    blockTableComment: {
+        borderStyle: 'solid',
+        borderColor: THEME.COLOR_MAIN_DARK,
+        borderWidth: 1,
+        padding: 2,
+        paddingVertical: 5,
+        // alignItems: 'center',
+    },
+    inputBlockComment: {
+        width: '100%',
+        height: '70%',
+    },
+    input: {
+        width: '100%',
+        height: '100%',
+        minHeight: 40,
+        textAlign: 'center',
+        paddingLeft: 5,
+        // borderColor: 'red',
+        // borderStyle: 'solid',
+        // borderWidth: 1,
+    },
+    commentTitle: {
+        marginBottom: 2,
+        width: '100%',
+        fontSize: 14,
+        backgroundColor: THEME.COLOR_MAIN_LIGHT,
+        fontWeight: 'bold',
+        borderStyle: 'solid',
+        borderColor: THEME.COLOR_MAIN_DARK,
+        borderWidth: 1,
+        paddingLeft: 10,
+        paddingVertical: 5,
+        // alignItems: 'center',
     },
     buttonWrap:{
         width: 130,
@@ -293,7 +366,7 @@ const styles = StyleSheet.create({
         paddingBottom: 25,
     },
     modalFlatList: {
-        height: "80%",
+        height: "60%",
         alignItems: 'center',
         justifyContent: 'center',
     },
