@@ -11,7 +11,7 @@ export const getUserInfo = () => {
         const result = await userInfo.get().then((doc) => {
 
             if (doc.exists) {
-                console.log("Document data:", doc.data());
+                // console.log("Document data:", doc.data());
                 return doc.data()
             } else {
                 // doc.data() will be undefined in this case
