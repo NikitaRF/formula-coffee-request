@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {requestBar} from "../store/actions/requestBar";
 
 export const FormItemBar = ({Item}) => {
+    // console.log('ITEM' , Item)
     const dispatch = useDispatch()
     const valueOfInput = useSelector(state => state.menu.requestBar)
     const findElement = valueOfInput.filter((el) => el.name === Item.name)

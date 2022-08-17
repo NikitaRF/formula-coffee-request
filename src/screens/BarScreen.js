@@ -7,7 +7,9 @@ import {
     Text,
     View,
     Modal,
-    TextInput
+    TextInput,
+    ScrollView,
+    SafeAreaView
 } from "react-native";
 import {THEME} from "../theme";
 import {useDispatch, useSelector} from "react-redux";
@@ -18,19 +20,18 @@ import email from "react-native-email";
 import {ModalRequestSuccess} from "../components/ModalRequestSuccess";
 import {clearRequestBar} from "../store/actions/clearRequestBar";
 import {FormItemBar} from "../components/FormItemBar";
+import {ModifyViewFormListData} from "../components/ModifyViewFormListData";
+import {CapitalizeFirstLetter} from "../components/СapitalizeFirstLetter";
 
 export const BarScreen = ({navigation}) => {
     const userDisplayName = useSelector(state => state.user.userAuth)
     const [stateComment, setStateComment] = useState('')
-    //console.log(userDisplayName)
-    // console.log(stateComment)
-
     const dispatch = useDispatch()
+
     const formData = useSelector(state => state.menu.formBar)
-    // console.log("FORMDATA", formData)
+    const modifyFormData = ModifyViewFormListData(formData)
 
     const itemRequest = useSelector(state => state.menu.requestBar)
-    //console.log('ItemREQUEST', itemRequest)
 
     const [modal, setModal] = useState(false)
     const [state, setState] = useState({
@@ -205,14 +206,23 @@ export const BarScreen = ({navigation}) => {
                         <Text style={styles.titleText}>кол-во</Text>
                     </View>
                 </View>
-                <View style={styles.flatList}>
-                    <FlatList
-                        data={formData}
-                        keyExtractor={(menu) => menu.name}
-                        refreshing={true}
-                        renderItem={({item}) => <FormItemBar Item={item} /> }
-                    />
-                </View>
+
+                <ScrollView style={{height: '75%', marginBottom: 35}}>
+                    {modifyFormData.map((e) =>
+                        <View style={styles.flatList}>
+                            <View>
+
+                                    <View style={styles.categoryBlock}>
+                                        <Text style={styles.categoryText}>{CapitalizeFirstLetter(e.category === undefined ? 'Другое' : e.category)}</Text>
+                                    </View>
+
+                                {e.data.map((el) => <FormItemBar Item={el} />)}
+                            </View>
+                        </View>
+                    )}
+
+                </ScrollView>
+
                 <TouchableOpacity
                     style={itemRequest.length ? styles.buttonWrap : styles.buttonWrapDisabled}
                     onPress={() => postRequest()}
@@ -222,13 +232,23 @@ export const BarScreen = ({navigation}) => {
                 </TouchableOpacity>
             </View>
         </KeyboardAvoidingView>
-
     )
 }
 
 const styles = StyleSheet.create({
     containerKeyBoard: {
 
+    },
+    categoryBlock: {
+        paddingVertical: 5,
+        marginHorizontal: 10,
+        backgroundColor: THEME.COLOR_MAIN_LIGHT
+    },
+    categoryText: {
+        paddingLeft: 12,
+        color: THEME.COLOR_MAIN_DARK,
+        fontSize: 14,
+        fontWeight: 'bold'
     },
     preloader: {
         position: 'absolute',
@@ -283,7 +303,7 @@ const styles = StyleSheet.create({
     buttonWrap:{
         width: 130,
         height: 35,
-        marginBottom: 10,
+        marginBottom: 25,
         marginTop: 5,
         paddingHorizontal: 5,
         paddingVertical: 5,
@@ -293,7 +313,7 @@ const styles = StyleSheet.create({
     buttonWrapDisabled:{
         width: 130,
         height: 35,
-        marginBottom: 10,
+        marginBottom: 25,
         marginTop: 5,
         paddingHorizontal: 5,
         paddingVertical: 5,
@@ -367,10 +387,10 @@ const styles = StyleSheet.create({
         color: THEME.COLOR_MAIN_DARK
     },
     flatList: {
-        height: "85%",
+        // height: '85%',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingBottom: 25,
+        paddingBottom: 10,
     },
     modalFlatList: {
         height: "60%",
@@ -378,3 +398,31 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 })
+
+
+
+//     <View style={styles.flatList}>
+//     <FlatList
+// ListHeaderComponent={
+// <View style={styles.categoryBlock}>
+//     <Text style={styles.categoryText}>{CapitalizeFirstLetter(e.category === undefined ? 'Другое' : e.category)}</Text>
+// </View>
+// }
+// data={e.data}
+// keyExtractor={(menu) => menu.name}
+// refreshing={true}
+// renderItem={({item}) => <FormItemBar Item={item} /> }
+// />
+// </View>
+
+
+
+// <View style={styles.flatList}>
+//     <FlatList
+//
+//        data={formData}
+//       keyExtractor={(menu) => menu.name}
+//        refreshing={true}
+//        renderItem={({item}) => <FormItemBar Item={item} /> }
+//    />
+// </View>
