@@ -11,6 +11,8 @@ import {userLogout} from "../store/actions/userLogout";
 import {AboutAppNavigation} from "./AboutAppNavigation";
 import {MainNavigation} from "./MainNavigation";
 import {BarNavigation} from "./BarNavigation";
+import {OfficeNavigation} from "./OfficeNavigation";
+import {ContactsNavigation} from "./ContactsNavigation";
 
 function CustomDrawerContent(props) {
     const currentYear = new Date().getFullYear()
@@ -109,6 +111,31 @@ export const MenuDrawer = () => {
                 options={{
                     drawerIcon: ({focused}) => <MaterialIcons
                         name='local-bar'
+                        size={iconSize}
+                        color={focused ? THEME.COLOR_MAIN_LIGHT : THEME.COLOR_MAIN_DARK}
+                    />
+                }}
+            />
+
+            <Drawer.Screen
+                name="Расходники"
+                component={OfficeNavigation}
+                options={{
+                    drawerIcon: ({focused}) => <AntDesign
+                        name="pushpino"
+                        size={iconSize}
+                        color={focused ? THEME.COLOR_MAIN_LIGHT : THEME.COLOR_MAIN_DARK}
+                    />
+                }}
+            />
+
+
+            <Drawer.Screen
+                name="Контакты"
+                component={ContactsNavigation}
+                options={{
+                    drawerIcon: ({focused}) => <AntDesign
+                        name='contacts'
                         size={iconSize}
                         color={focused ? THEME.COLOR_MAIN_LIGHT : THEME.COLOR_MAIN_DARK}
                     />

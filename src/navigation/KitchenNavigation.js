@@ -53,7 +53,7 @@ export const KitchenNavigation = () =>  {
             )
         })}
         >
-            <Stack.Screen name="Заявка бар" component={KitchenScreen} />
+            <Stack.Screen name="Заявка кухня" component={KitchenScreen} />
         </Stack.Navigator>
     );
 }

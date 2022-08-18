@@ -1,36 +1,25 @@
-import React, {useEffect, useState} from "react";
-import {
-    ActivityIndicator,
-    KeyboardAvoidingView,
-    FlatList,
-    StyleSheet,
-    Text,
-    View,
-    Modal,
-    TextInput,
-    ScrollView,
-} from "react-native";
+import React, {useEffect, useReducer, useState} from "react";
+import {ActivityIndicator, KeyboardAvoidingView, Keyboard, FlatList, StyleSheet, Text, View, Modal} from "react-native";
 import {THEME} from "../theme";
 import {useDispatch, useSelector} from "react-redux";
-import {getFormBar} from "../store/actions/getFormBar";
 import {TouchableOpacity} from "react-native-gesture-handler";
 import {FormItemModal} from "../components/FormItemModal";
 import email from "react-native-email";
 import {ModalRequestSuccess} from "../components/ModalRequestSuccess";
-import {clearRequestBar} from "../store/actions/clearRequestBar";
-import {FormItemBar} from "../components/FormItemBar";
-import {ModifyViewFormListData} from "../components/ModifyViewFormListData";
-import {CapitalizeFirstLetter} from "../components/СapitalizeFirstLetter";
+import {getFormOffice} from "../store/actions/getFormOffice";
+import {clearRequestOffice} from "../store/actions/clearRequestOffice";
+import {FormItemOffice} from "../components/FormItemOffice";
 
-export const BarScreen = ({navigation}) => {
+export const OfficeScreen = ({navigation}) => {
     const userDisplayName = useSelector(state => state.user.userAuth)
-    const [stateComment, setStateComment] = useState('')
+    //console.log(userDisplayName)
+
     const dispatch = useDispatch()
+    const formData = useSelector(state => state.menu.formOffice)
+    // console.log("FORMDATA", formData)
 
-    const formData = useSelector(state => state.menu.formBar)
-    const modifyFormData = ModifyViewFormListData(formData)
-
-    const itemRequest = useSelector(state => state.menu.requestBar)
+    const itemRequest = useSelector(state => state.menu.requestOffice)
+    //console.log('ItemREQUEST', itemRequest)
 
     const [modal, setModal] = useState(false)
     const [state, setState] = useState({
@@ -58,8 +47,8 @@ export const BarScreen = ({navigation}) => {
             // Optional additional arguments
             // cc: ['bazzy@moo.com', 'doooo@daaa.com'], // string or array of email addresses
             // bcc: 'mee@mee.com', // string or array of email addresses
-            subject: `Заявка бар, ${currentDate}`,
-            body: `Заявку составил ${userDisplayName} \n\n ${message} \n\n Комментарий: \n ${stateComment}`,
+            subject: `Заявка кухня, ${currentDate}`,
+            body: `Заявку составил ${userDisplayName} \n\n ${message}`,
             checkCanOpen: false // Call Linking.canOpenURL prior to Linking.openURL
         }).catch(console.error)
     }
@@ -68,17 +57,12 @@ export const BarScreen = ({navigation}) => {
         setState({
             isLoading: true,
         })
-        await dispatch(getFormBar())
-        dispatch(clearRequestBar())
+        await dispatch(getFormOffice())
+        dispatch(clearRequestOffice())
         setState({
             isLoading: false,
         })
     }
-
-    const changeTextToComment = (val) => {
-        setStateComment(val)
-    }
-
 
     useEffect(() => {
         loadFormData()
@@ -88,7 +72,7 @@ export const BarScreen = ({navigation}) => {
         setState({
             isLoading: true,
         })
-        await dispatch(getFormBar())
+        await dispatch(getFormOffice())
         setState({
             isLoading: false,
         })
@@ -128,9 +112,6 @@ export const BarScreen = ({navigation}) => {
     if (modal) {
         return (
             <Modal visible={modal} animationType='slide' transparent={false}>
-                <KeyboardAvoidingView
-                    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                    style={styles.container}>
                 <View style={styles.modalCenter}>
                     <Text style={styles.modalTitleText}>Подтвердите заявку</Text>
                     <View style={styles.titleBlock}>
@@ -152,23 +133,6 @@ export const BarScreen = ({navigation}) => {
                             renderItem={({item}) => <FormItemModal Item={item} /> }
                         />
                     </View>
-                    <View style={styles.blockComment}>
-                        <Text style={styles.commentTitle}>Комментарий</Text>
-                        <View style={[styles.blockTableComment, styles.inputBlockComment]}>
-                            <TextInput
-                                autoCorrect={false}
-                                multiline = {true}
-                                autoCapitalize='none'
-                                placeholder='Оставить комментарий'
-                                placeholderTextColor={THEME.COLOR_MAIN_PLACEHOLDER}
-                                textContentType='none'
-                                style={styles.input}
-                                maxLength={435}
-                                onChangeText={(val) => changeTextToComment(val)}
-                                value={stateComment}
-                            />
-                        </View>
-                    </View>
                     <View style={styles.modalButtons}>
                         <TouchableOpacity
                             style={styles.buttonWrap}
@@ -184,7 +148,6 @@ export const BarScreen = ({navigation}) => {
                         </TouchableOpacity>
                     </View>
                 </View>
-                </KeyboardAvoidingView>
             </Modal>
         )
     }
@@ -205,23 +168,14 @@ export const BarScreen = ({navigation}) => {
                         <Text style={styles.titleText}>кол-во</Text>
                     </View>
                 </View>
-
-                <ScrollView style={{height: '75%', marginBottom: 35}}>
-                    {modifyFormData.map((e) =>
-                        <View style={styles.flatList}>
-                            <View>
-
-                                    <View style={styles.categoryBlock}>
-                                        <Text style={styles.categoryText}>{CapitalizeFirstLetter(e.category === undefined ? 'Другое' : e.category)}</Text>
-                                    </View>
-
-                                {e.data.map((el) => <FormItemBar Item={el} />)}
-                            </View>
-                        </View>
-                    )}
-
-                </ScrollView>
-
+                <View style={styles.flatList}>
+                    <FlatList
+                        data={formData}
+                        keyExtractor={(menu) => menu.name}
+                        refreshing={true}
+                        renderItem={({item}) => <FormItemOffice Item={item} /> }
+                    />
+                </View>
                 <TouchableOpacity
                     style={itemRequest.length ? styles.buttonWrap : styles.buttonWrapDisabled}
                     onPress={() => postRequest()}
@@ -231,24 +185,11 @@ export const BarScreen = ({navigation}) => {
                 </TouchableOpacity>
             </View>
         </KeyboardAvoidingView>
+
     )
 }
 
 const styles = StyleSheet.create({
-    containerKeyBoard: {
-
-    },
-    categoryBlock: {
-        paddingVertical: 5,
-        marginHorizontal: 10,
-        backgroundColor: THEME.COLOR_MAIN_LIGHT
-    },
-    categoryText: {
-        paddingLeft: 12,
-        color: THEME.COLOR_MAIN_DARK,
-        fontSize: 14,
-        fontWeight: 'bold'
-    },
     preloader: {
         position: 'absolute',
         left: 0,
@@ -257,52 +198,10 @@ const styles = StyleSheet.create({
         bottom: 0,
         backgroundColor: '#fff'
     },
-    blockComment: {
-        height: "18%",
-        marginTop: 5,
-        paddingHorizontal: 10,
-        // alignItems: 'center',
-        width: '100%',
-    },
-    blockTableComment: {
-        borderStyle: 'solid',
-        borderColor: THEME.COLOR_MAIN_DARK,
-        borderWidth: 1,
-        padding: 2,
-        paddingVertical: 5,
-        // alignItems: 'center',
-    },
-    inputBlockComment: {
-        width: '100%',
-        height: '70%',
-    },
-    input: {
-        width: '100%',
-        height: '100%',
-        minHeight: 40,
-        textAlign: 'center',
-        paddingLeft: 5,
-        // borderColor: 'red',
-        // borderStyle: 'solid',
-        // borderWidth: 1,
-    },
-    commentTitle: {
-        marginBottom: 2,
-        width: '100%',
-        fontSize: 14,
-        backgroundColor: THEME.COLOR_MAIN_LIGHT,
-        fontWeight: 'bold',
-        borderStyle: 'solid',
-        borderColor: THEME.COLOR_MAIN_DARK,
-        borderWidth: 1,
-        paddingLeft: 10,
-        paddingVertical: 5,
-        // alignItems: 'center',
-    },
     buttonWrap:{
         width: 130,
         height: 35,
-        marginBottom: 25,
+        marginBottom: 10,
         marginTop: 5,
         paddingHorizontal: 5,
         paddingVertical: 5,
@@ -312,7 +211,7 @@ const styles = StyleSheet.create({
     buttonWrapDisabled:{
         width: 130,
         height: 35,
-        marginBottom: 25,
+        marginBottom: 10,
         marginTop: 5,
         paddingHorizontal: 5,
         paddingVertical: 5,
@@ -323,9 +222,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width: '100%',
         justifyContent: 'space-around',
-        // borderColor: 'red',
-        // borderStyle: 'solid',
-        // borderWidth: 1,
     },
     modalCenter: {
         height: "100%",
@@ -386,42 +282,14 @@ const styles = StyleSheet.create({
         color: THEME.COLOR_MAIN_DARK
     },
     flatList: {
-        // height: '85%',
+        height: "85%",
         alignItems: 'center',
         justifyContent: 'center',
-        paddingBottom: 10,
+        paddingBottom: 25,
     },
     modalFlatList: {
-        height: "60%",
+        height: "80%",
         alignItems: 'center',
         justifyContent: 'center',
     },
 })
-
-
-
-//     <View style={styles.flatList}>
-//     <FlatList
-// ListHeaderComponent={
-// <View style={styles.categoryBlock}>
-//     <Text style={styles.categoryText}>{CapitalizeFirstLetter(e.category === undefined ? 'Другое' : e.category)}</Text>
-// </View>
-// }
-// data={e.data}
-// keyExtractor={(menu) => menu.name}
-// refreshing={true}
-// renderItem={({item}) => <FormItemBar Item={item} /> }
-// />
-// </View>
-
-
-
-// <View style={styles.flatList}>
-//     <FlatList
-//
-//        data={formData}
-//       keyExtractor={(menu) => menu.name}
-//        refreshing={true}
-//        renderItem={({item}) => <FormItemBar Item={item} /> }
-//    />
-// </View>

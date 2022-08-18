@@ -18,7 +18,7 @@ export const KitchenScreen = ({navigation}) => {
     const formData = useSelector(state => state.menu.formKitchen)
     // console.log("FORMDATA", formData)
 
-    const itemRequest = useSelector(state => state.menu.requestKitchen)
+    const itemRequest = useSelector(state => state.menu.requestUser)
     //console.log('ItemREQUEST', itemRequest)
 
     const [modal, setModal] = useState(false)

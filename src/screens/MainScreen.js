@@ -23,6 +23,12 @@ export const MainScreen = ({navigation}) => {
             >
                 <Text style={styles.buttonText}>Заявка по бару</Text>
             </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.buttonWrap}
+                onPress={() => navigation.navigate('Расходники')}
+            >
+                <Text style={styles.buttonText}>Заявка на расходники</Text>
+            </TouchableOpacity>
         </View>
     )
 }

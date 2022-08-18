@@ -20,6 +20,7 @@
     "expo-app-loading": "~2.1.0",
     "expo-checkbox": "~2.2.0",
     "expo-font": "~10.2.0",
+    "expo-linking": "~3.2.2",
     "expo-status-bar": "~1.4.0",
     "expo-updates": "~0.14.3",
     "firebase": "^8.10.1",
