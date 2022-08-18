@@ -13,7 +13,10 @@ export const ContactsScreen = () => {
     }
     return (
         <View style={styles.center}>
-            <Text style={styles.title}>Написать разработчику</Text>
+            <View>
+                <Text style={styles.title}>Написать разработчику</Text>
+                <Text style={styles.description}>Оставить пожелания по приложению, указать на ошибки, предложить новый функционал, внести правки</Text>
+            </View>
             <TouchableOpacity
                 style={styles.buttonWrap}
                 onPress={() => sendEmail()}
@@ -49,6 +52,10 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         paddingVertical: 5,
         fontSize: 15,
+    },
+    description: {
+        color: THEME.COLOR_MAIN_DARK,
+        marginTop: 5,
     },
 
 })
