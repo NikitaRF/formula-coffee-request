@@ -13,7 +13,7 @@ export const ContactsScreen = () => {
     }
     return (
         <View style={styles.center}>
-            <View>
+            <View style={styles.textWrap}>
                 <Text style={styles.title}>Написать разработчику</Text>
                 <Text style={styles.description}>Оставить пожелания по приложению, указать на ошибки, предложить новый функционал, внести правки</Text>
             </View>
@@ -34,6 +34,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    textWrap: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: "70%",
+    },
     title: {
         color: THEME.COLOR_MAIN_DARK,
         fontFamily: 'open-bold',
@@ -45,6 +50,7 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         borderRadius: 5,
         backgroundColor: THEME.COLOR_MAIN_LIGHT,
+
     },
     buttonText: {
         fontFamily: THEME.FONT_BOLD,
@@ -56,6 +62,7 @@ const styles = StyleSheet.create({
     description: {
         color: THEME.COLOR_MAIN_DARK,
         marginTop: 5,
+        textAlign: 'center',
     },
 
 })
