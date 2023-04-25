@@ -6,7 +6,7 @@ export const getUserInfo = () => {
     const getUserInfoOnDB = async () => {
         const userUid = firebase.auth().currentUser.uid
         const db = firebase.firestore();
-        const userInfo = db.collection("users").doc(userUid);
+        const userInfo = db.collection("staffUsers").doc(userUid);
 
         const result = await userInfo.get().then((doc) => {
 

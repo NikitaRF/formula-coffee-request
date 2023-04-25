@@ -55,7 +55,7 @@ export const OfficeScreen = ({navigation}) => {
 
     const updateForm = async () => {
         setState({
-            isLoading: true,
+            isLoading: true,npm
         })
         await dispatch(getFormOffice())
         dispatch(clearRequestOffice())
