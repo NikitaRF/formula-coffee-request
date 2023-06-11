@@ -53,7 +53,7 @@ export const BarScreen = ({navigation}) => {
         let message = ''
         itemRequest.forEach( (e) => message += `${e.name} (${e.unit}) - ${e.count} \n`)
 
-        const to = ['bng@itbls.ru', 'mar1.usacheva@yandex.ru'] // string or array of email addresses
+        const to = ['mar1.usacheva@yandex.ru'] // string or array of email addresses
         email(to, {
             // Optional additional arguments
             // cc: ['bazzy@moo.com', 'doooo@daaa.com'], // string or array of email addresses
