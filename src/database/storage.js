@@ -1,4 +1,5 @@
-import firebase from "./firebase";
+import { ref } from 'firebase/storage';
+import { storage } from './firebase';
 
-export const storage = firebase.storage()
-export const  storageRef = firebase.storage().ref();
+export { storage };
+export const storageRef = ref(storage);

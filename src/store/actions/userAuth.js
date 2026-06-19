@@ -1,9 +1,9 @@
 import {USER_AUTH} from "../types";
-import firebase from "firebase";
+import {auth} from "../../database/firebase";
 
 export const userAuth = () => {
     return dispatch => {
-        const userIsAuth = firebase.auth().currentUser.displayName
+        const userIsAuth = auth.currentUser.displayName
         dispatch({
             type: USER_AUTH,
             payload: userIsAuth

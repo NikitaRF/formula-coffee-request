@@ -1,11 +1,15 @@
 import React from "react";
-import { HeaderButton } from "react-navigation-header-buttons";
-import {THEME} from "../theme";
 import { Ionicons } from '@expo/vector-icons';
+import { THEME } from "../theme";
 
-export const AppHeaderIcon = (props) => <HeaderButton
-    {...props}
-    iconSize={26}
-    IconComponent={Ionicons}
-    color={THEME.COLOR_MAIN_DARK}
-/>
+// Кнопка-гамбургер для открытия Drawer. Используется как headerLeft во всех стеках.
+// Заменяет прежний react-navigation-header-buttons (несовместим с React Navigation v7).
+export const HeaderMenuButton = ({ onPress }) => (
+    <Ionicons
+        name="menu"
+        size={26}
+        color={THEME.COLOR_MAIN_DARK}
+        style={{ marginLeft: 15 }}
+        onPress={onPress}
+    />
+);

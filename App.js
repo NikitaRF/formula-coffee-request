@@ -1,31 +1,34 @@
-import React, { useState } from 'react';
-import AppLoading from "expo-app-loading";
-import {Provider} from "react-redux";
+import React, { useCallback } from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+import { Provider } from 'react-redux';
 
-import { bootstrap } from "./src/bootstrap";
+import { fonts } from './src/bootstrap';
 import store from './src/store';
-import {Root} from "./src/components/Root";
+import { Root } from './src/components/Root';
+
+// Не прятать нативный splash, пока не загрузятся шрифты.
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
-    const [isReady, setIsReady] = useState(false)
+    const [fontsLoaded, fontError] = useFonts(fonts);
 
-    if(!isReady){
-        return (
-            <AppLoading
-            startAsync={bootstrap}
-            onFinish={() => setIsReady(true)}
-            onError={(e) => console.log(e)}
-            />
-        )
+    const onLayoutRootView = useCallback(() => {
+        if (fontsLoaded || fontError) {
+            SplashScreen.hideAsync();
+        }
+    }, [fontsLoaded, fontError]);
+
+    if (!fontsLoaded && !fontError) {
+        return null;
     }
 
-        return (
+    return (
+        <GestureHandlerRootView style={{ flex: 1 }} onLayout={onLayoutRootView}>
             <Provider store={store}>
-               <Root/>
+                <Root />
             </Provider>
-        )
+        </GestureHandlerRootView>
+    );
 }
-
-
-
-

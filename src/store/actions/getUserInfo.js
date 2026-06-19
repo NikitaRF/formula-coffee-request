@@ -1,34 +1,34 @@
 import {GET_USERS_INFO} from "../types";
-import firebase from "firebase";
+import {doc, getDoc} from "firebase/firestore";
+import {auth, db} from "../../database/firebase";
 
 export const getUserInfo = () => {
 
     const getUserInfoOnDB = async () => {
-        const userUid = firebase.auth().currentUser.uid
-        const db = firebase.firestore();
-        const userInfo = db.collection("staffUsers").doc(userUid);
+        const userUid = auth.currentUser.uid
+        const userInfoRef = doc(db, "staffUsers", userUid);
 
-        const result = await userInfo.get().then((doc) => {
-
-            if (doc.exists) {
-                // console.log("Document data:", doc.data());
-                return doc.data()
+        try {
+            const docSnap = await getDoc(userInfoRef)
+            if (docSnap.exists()) {
+                // console.log("Document data:", docSnap.data());
+                return docSnap.data()
             } else {
-                // doc.data() will be undefined in this case
+                // docSnap.data() will be undefined in this case
                 console.log("No such document!");
             }
-        }).catch((error) => {
+        } catch (error) {
             console.log("Error getting document:", error);
-        });
-
-        return result
+        }
     }
 
     return async dispatch => {
         const userInfo = await getUserInfoOnDB()
         dispatch({
             type: GET_USERS_INFO,
-            payload: userInfo
+            // Если документа в staffUsers нет — кладём {}, а не undefined,
+            // чтобы экраны не падали на userData.jobTitle.
+            payload: userInfo || {}
         })
     }
 }

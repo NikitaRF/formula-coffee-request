@@ -1,17 +1,36 @@
-import firebase from "firebase";
+import { initializeApp } from 'firebase/app';
+import {
+    initializeAuth,
+    getAuth,
+    getReactNativePersistence,
+} from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// TODO: Replace the following with your app's Firebase project configuration
-// For Firebase JavaScript SDK v7.20.0 and later, `measurementId` is an optional field
 const firebaseConfig = {
-    apiKey: "AIzaSyBznRGPElFktG3IOxA54dax7dVrjqdh_ao",
-    authDomain: "formula-coffee-d6f54.firebaseapp.com",
-    projectId: "formula-coffee-d6f54",
-    storageBucket: "formula-coffee-d6f54.appspot.com",
-    messagingSenderId: "837804958669",
-    appId: "1:837804958669:web:67046f83d414b86578da84"
+    apiKey: 'AIzaSyBznRGPElFktG3IOxA54dax7dVrjqdh_ao',
+    authDomain: 'formula-coffee-d6f54.firebaseapp.com',
+    projectId: 'formula-coffee-d6f54',
+    storageBucket: 'formula-coffee-d6f54.appspot.com',
+    messagingSenderId: '837804958669',
+    appId: '1:837804958669:web:67046f83d414b86578da84',
 };
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 
-export default firebase;
+// initializeAuth с RN-персистентностью через AsyncStorage, чтобы сессия
+// сохранялась между перезапусками. При повторной инициализации (Fast Refresh)
+// падает — тогда берём уже созданный экземпляр через getAuth.
+let auth;
+try {
+    auth = initializeAuth(app, {
+        persistence: getReactNativePersistence(AsyncStorage),
+    });
+} catch (e) {
+    auth = getAuth(app);
+}
+
+export { auth };
+export const db = getFirestore(app);
+export const storage = getStorage(app);

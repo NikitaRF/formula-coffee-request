@@ -1,12 +1,12 @@
 import React, {useEffect, useReducer, useState} from "react";
-import {ActivityIndicator, KeyboardAvoidingView, Keyboard, FlatList, StyleSheet, Text, View, Modal} from "react-native";
+import {ActivityIndicator, KeyboardAvoidingView, Keyboard, FlatList, StyleSheet, Text, View, Modal, Platform, Alert} from "react-native";
 import {THEME} from "../theme";
 import {useDispatch, useSelector} from "react-redux";
 import {getFormKitchen} from "../store/actions/getFormKitchen";
 import {FormItemKitchen} from '../components/FormItemKitchen'
 import {TouchableOpacity} from "react-native-gesture-handler";
 import {FormItemModal} from "../components/FormItemModal";
-import email from "react-native-email";
+import * as MailComposer from "expo-mail-composer";
 import {clearRequestKitchen} from "../store/actions/clearKitchenRequest";
 import {ModalRequestSuccess} from "../components/ModalRequestSuccess";
 
@@ -27,7 +27,7 @@ export const KitchenScreen = ({navigation}) => {
     })
     const [modalLuckWindow, setModalLuckWindow] = useState(false)
 
-    const handleEmail = () => {
+    const handleEmail = async () => {
         const nowDate = new Date()
         const formatter = new Intl.DateTimeFormat("ru", {
             year: "numeric",
@@ -42,15 +42,21 @@ export const KitchenScreen = ({navigation}) => {
         let message = ''
         itemRequest.forEach( (e) => message += `${e.name} (${e.unit}) - ${e.count} \n`)
 
-        const to = ['bng@itbls.ru', 'mar1.usacheva@yandex.ru'] // string or array of email addresses
-        email(to, {
-            // Optional additional arguments
-            // cc: ['bazzy@moo.com', 'doooo@daaa.com'], // string or array of email addresses
-            // bcc: 'mee@mee.com', // string or array of email addresses
-            subject: `Заявка кухня, ${currentDate}`,
-            body: `Заявку составил ${userDisplayName} \n\n ${message}`,
-            checkCanOpen: false // Call Linking.canOpenURL prior to Linking.openURL
-        }).catch(console.error)
+        const to = ['bng@itbls.ru', 'mar1.usacheva@yandex.ru']
+        try {
+            const isAvailable = await MailComposer.isAvailableAsync()
+            if (!isAvailable) {
+                Alert.alert('Почтовый клиент недоступен на этом устройстве')
+                return
+            }
+            await MailComposer.composeAsync({
+                recipients: to,
+                subject: `Заявка кухня, ${currentDate}`,
+                body: `Заявку составил ${userDisplayName} \n\n ${message}`,
+            })
+        } catch (e) {
+            console.error(e)
+        }
     }
 
     const updateForm = async () => {

@@ -1,5 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
-import thunk from 'redux-thunk';
+// redux-thunk v3 больше не имеет default-экспорта — только именованный { thunk }.
+import { thunk } from 'redux-thunk';
 import {userReducer} from "./reducers/userReducer";
 import {formsReducer} from "./reducers/formsReducer";
 

@@ -3,7 +3,8 @@ import {Text, Image, StyleSheet, View, Linking, TouchableOpacity} from "react-na
 import {createDrawerNavigator, DrawerItemList} from "@react-navigation/drawer";
 import {AntDesign, MaterialCommunityIcons, MaterialIcons} from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
-import firebase from "firebase";
+import { signOut as firebaseSignOut } from "firebase/auth";
+import { auth } from "../database/firebase";
 import {useDispatch, useSelector} from "react-redux";
 import { THEME } from "../theme";
 import {KitchenNavigation} from "./KitchenNavigation";
@@ -23,8 +24,8 @@ function CustomDrawerContent(props) {
     // console.log(userDisplayName)
 
     const signOut = () => {
-        if (firebase.auth().currentUser) {
-            firebase.auth().signOut().then(() => {
+        if (auth.currentUser) {
+            firebaseSignOut(auth).then(() => {
                 dispatch(userLogout())
             })
                 .catch(error => console.log('!!!', error))
@@ -43,7 +44,7 @@ function CustomDrawerContent(props) {
                         <Text style={styles.infoBlockTitle}>Привет!</Text>
                         <Text style={styles.infoBlockText}>{userDisplayName}</Text>
                         <Text style={{...styles.infoBlockTitle, marginTop: 'auto'}}>Должность</Text>
-                        <Text style={styles.infoBlockText}>{userData.jobTitle}</Text>
+                        <Text style={styles.infoBlockText}>{userData?.jobTitle}</Text>
                         <TouchableOpacity
                             style={styles.buttonSignOutWrap}
                             onPress={() => signOut()}
@@ -57,7 +58,7 @@ function CustomDrawerContent(props) {
                 </View>
                 <View style={styles.bottomWrapper}>
                     <View style={styles.socials}>
-                        <AntDesign name="facebook-square" onPress={() => Linking.openURL('https://www.facebook.com/FormulaCoffee.SRG/')} size={32} color={THEME.COLOR_MAIN_DARK} />
+                        <MaterialCommunityIcons name="facebook" onPress={() => Linking.openURL('https://www.facebook.com/FormulaCoffee.SRG/')} size={32} color={THEME.COLOR_MAIN_DARK} />
                         <AntDesign name="instagram" size={32} onPress={() => Linking.openURL('https://www.instagram.com/formula__coffee/')} color={THEME.COLOR_MAIN_DARK} />
                         <Entypo name="tripadvisor" size={32} onPress={() => Linking.openURL('https://www.tripadvisor.ru/Restaurant_Review-g737146-d19431381-Reviews-Formula_Coffee-Surgut_Surgutsky_District_Khanty_Mansi_Autonomous_Okrug_Yugra_Tyu.html')} color={THEME.COLOR_MAIN_DARK} />
                     </View>
@@ -74,11 +75,11 @@ export const MenuDrawer = () => {
     const iconSize = 20;
     return (
         <Drawer.Navigator
-            drawerType='front'
             drawerContent={props => <CustomDrawerContent {...props} />}
-            drawerContentOptions={{
-                activeTintColor: THEME.COLOR_MAIN_LIGHT,
-                inactiveTintColor: THEME.COLOR_MAIN_DARK,
+            screenOptions={{
+                drawerType: 'front',
+                drawerActiveTintColor: THEME.COLOR_MAIN_LIGHT,
+                drawerInactiveTintColor: THEME.COLOR_MAIN_DARK,
             }}
         >
             <Drawer.Screen
@@ -121,8 +122,8 @@ export const MenuDrawer = () => {
                 name="Расходники"
                 component={OfficeNavigation}
                 options={{
-                    drawerIcon: ({focused}) => <AntDesign
-                        name="pushpino"
+                    drawerIcon: ({focused}) => <MaterialCommunityIcons
+                        name="pin"
                         size={iconSize}
                         color={focused ? THEME.COLOR_MAIN_LIGHT : THEME.COLOR_MAIN_DARK}
                     />

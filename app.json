@@ -1,25 +1,24 @@
 {
   "expo": {
-    "name": "formula-coffee-requests",
-    "slug": "formula-coffee-requests",
+    "name": "formula-coffee-requests_26",
+    "slug": "formula-coffee-requests_26",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/logo.png",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain"
-
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
+    "scheme": "formulacoffee",
+    "userInterfaceStyle": "light",
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "ru.formulacoffee.requests",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
+      "package": "ru.formulacoffee.requests",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -27,6 +26,36 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#FFFFFF"
+        }
+      ],
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/OpenSans-Bold.ttf",
+            "./assets/fonts/OpenSans-Regular.ttf"
+          ]
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "26d37bcf-2f8f-465a-bc96-57fa7008b5b6"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/26d37bcf-2f8f-465a-bc96-57fa7008b5b6"
     }
   }
 }

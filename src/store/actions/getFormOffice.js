@@ -1,30 +1,24 @@
 import {GET_FORM_OFFICE} from "../types";
-import firebase from "firebase";
-const db = firebase.firestore();
+import {collection, getDocs} from "firebase/firestore";
+import {db} from "../../database/firebase";
 
 export const getFormOffice = () => {
     const getBlankFormBarOnDB = async () => {
-
-        const result = await db.collection('/requests/office/form').get().then((querySnapshot) => {
+        try {
+            const querySnapshot = await getDocs(collection(db, 'requests/office/form'))
             let arr = []
             querySnapshot.forEach((doc) => {
-                //console.log('DOC', doc.data())
                 // doc.data() is never undefined for query doc snapshots
-                // console.log(doc.id, " => ", doc.data());
-                // arr.push({[doc.id]: doc.data()})
                 arr.push(doc.data())
             });
             return arr
-
-        }).catch((error) => {
+        } catch (error) {
             console.log("Error getting document:", error);
-        })
-        return result
+        }
     }
 
     return async dispatch => {
         const dataBlankForm = await getBlankFormBarOnDB()
-        //console.log('dataBlankFormKitchen', dataBlankFormKitchen)
         dispatch({
             type: GET_FORM_OFFICE,
             payload: dataBlankForm

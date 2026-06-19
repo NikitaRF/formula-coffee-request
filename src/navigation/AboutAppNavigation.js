@@ -1,8 +1,7 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import React from "react";
 import {AboutAppScreen} from "../screens/AboutAppScreen";
-import {HeaderButtons, Item} from "react-navigation-header-buttons";
-import {AppHeaderIcon} from "../components/AppHeaderIcon";
+import {HeaderMenuButton} from "../components/AppHeaderIcon";
 
 
 const Stack = createStackNavigator();
@@ -13,11 +12,7 @@ export const AboutAppNavigation = () =>  {
         <Stack.Navigator
             screenOptions={({ navigation }) => ({
                 headerLeft: () => (
-                    <HeaderButtons HeaderButtonComponent={AppHeaderIcon} >
-                        <Item title='Menu'
-                              iconName='ios-menu'
-                              onPress={() => navigation.toggleDrawer()}/>
-                    </HeaderButtons>
+                    <HeaderMenuButton onPress={() => navigation.toggleDrawer()} />
                 ),
             })}
         >

@@ -1,8 +1,7 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import {KitchenScreen} from "../screens/KitchenScreen";
 import React from "react";
-import {HeaderButtons, Item} from "react-navigation-header-buttons";
-import {AppHeaderIcon} from "../components/AppHeaderIcon";
+import {HeaderMenuButton} from "../components/AppHeaderIcon";
 import {MaterialIcons} from "@expo/vector-icons";
 import {View, StyleSheet, ActivityIndicator} from "react-native";
 import {THEME} from "../theme";
@@ -28,11 +27,7 @@ export const KitchenNavigation = () =>  {
         <Stack.Navigator
         screenOptions={({ navigation }) => ({
             headerLeft: () => (
-                <HeaderButtons HeaderButtonComponent={AppHeaderIcon} >
-                    <Item title='Menu'
-                    iconName='ios-menu'
-                    onPress={() => navigation.toggleDrawer()}/>
-                </HeaderButtons>
+                <HeaderMenuButton onPress={() => navigation.toggleDrawer()} />
             ), headerRight: () => (
 
                 <View style={{marginRight: 20, flexDirection: 'row'}}>

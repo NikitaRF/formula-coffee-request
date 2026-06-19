@@ -8,9 +8,10 @@ import {
     ActivityIndicator,
     Alert,
     TouchableWithoutFeedback,
-    Keyboard, TouchableOpacity, KeyboardAvoidingView, Modal
+    Keyboard, TouchableOpacity, KeyboardAvoidingView, Modal, Platform
 } from "react-native";
-import firebase from '../database/firebase';
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../database/firebase';
 import { Ionicons } from '@expo/vector-icons';
 
 import {THEME} from "../theme";
@@ -57,9 +58,7 @@ export const SignInScreen = ({navigation}) => {
                 ...state,
                 isLoading: true,
             })
-            firebase
-                .auth()
-                .signInWithEmailAndPassword(state.email, state.password)
+            signInWithEmailAndPassword(auth, state.email, state.password)
                 .then((res) => {
                     // console.log(res)
                     // Когда закончу тестировать - поставить заново проверку на emailVerified (убрать !)
@@ -72,7 +71,8 @@ export const SignInScreen = ({navigation}) => {
                         })
                         dispatch(userAuth())
                         dispatch(getUserInfo())
-                        navigation.navigate('MenuDrawer')
+                        // Переход на MenuDrawer выполняет Root.js автоматически
+                        // при смене состояния авторизации (условный рендер).
 
                         // // Вручную обновляем данные пользователя (DisplayName)
                         // const user = firebase.auth().currentUser;
@@ -105,12 +105,21 @@ export const SignInScreen = ({navigation}) => {
                             email: '',
                             password: '',
                         })
-                        navigation.navigate('SignInScreen')
                     }
                 })
                 .catch(error => {
-                    console.log(error)
-                    Alert.alert('Такого пользователя не существует')
+                    console.log('AUTH ERROR:', error.code, error.message)
+                    // Понятные сообщения по коду ошибки Firebase вместо общей фразы.
+                    const messages = {
+                        'auth/invalid-email': 'Некорректный email',
+                        'auth/user-not-found': 'Такого пользователя не существует',
+                        'auth/wrong-password': 'Неверный пароль',
+                        'auth/invalid-credential': 'Неверный email или пароль',
+                        'auth/too-many-requests': 'Слишком много попыток, попробуйте позже',
+                        'auth/network-request-failed': 'Нет связи с сервером',
+                        'auth/operation-not-allowed': 'Вход по email/паролю отключён в Firebase',
+                    }
+                    Alert.alert(messages[error.code] || `Ошибка входа: ${error.code}`)
                     setState({
                         isLoading: false,
                         email: '',
