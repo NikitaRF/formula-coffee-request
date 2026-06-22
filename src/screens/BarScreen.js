@@ -216,14 +216,14 @@ export const BarScreen = ({navigation}) => {
 
                 <ScrollView style={{height: '75%', marginBottom: 35}}>
                     {modifyFormData.map((e) =>
-                        <View style={styles.flatList}>
+                        <View style={styles.flatList} key={e.category ?? 'Другое'}>
                             <View>
 
                                     <View style={styles.categoryBlock}>
                                         <Text style={styles.categoryText}>{CapitalizeFirstLetter(e.category === undefined ? 'Другое' : e.category)}</Text>
                                     </View>
 
-                                {e.data.map((el) => <FormItemBar Item={el} />)}
+                                {e.data.map((el) => <FormItemBar Item={el} key={el.name} />)}
                             </View>
                         </View>
                     )}

@@ -16,7 +16,7 @@ export const ContactsNavigation = () =>  {
                 ),
             })}
         >
-            <Stack.Screen name="Контакты" component={ContactsScreen} />
+            <Stack.Screen name="ContactsHome" component={ContactsScreen} options={{ title: 'Контакты' }} />
         </Stack.Navigator>
     );
 }

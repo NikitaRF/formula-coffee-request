@@ -77,6 +77,9 @@ export const MenuDrawer = () => {
         <Drawer.Navigator
             drawerContent={props => <CustomDrawerContent {...props} />}
             screenOptions={{
+                // В React Navigation v6/v7 у Drawer появился собственный header.
+                // Отключаем его — заголовок и кнопки рисует внутренний Stack каждого экрана.
+                headerShown: false,
                 drawerType: 'front',
                 drawerActiveTintColor: THEME.COLOR_MAIN_LIGHT,
                 drawerInactiveTintColor: THEME.COLOR_MAIN_DARK,

@@ -14,7 +14,7 @@ export const MainNavigation = () =>  {
                 ),
             })}
         >
-            <Stack.Screen name="Главная" component={MainScreen} />
+            <Stack.Screen name="MainHome" component={MainScreen} options={{ title: 'Главная' }} />
         </Stack.Navigator>
     );
 }

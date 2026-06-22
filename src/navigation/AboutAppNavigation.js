@@ -16,7 +16,7 @@ export const AboutAppNavigation = () =>  {
                 ),
             })}
         >
-            <Stack.Screen name="О приложении" component={AboutAppScreen} />
+            <Stack.Screen name="AboutHome" component={AboutAppScreen} options={{ title: 'О приложении' }} />
         </Stack.Navigator>
     );
 }
